@@ -11,8 +11,8 @@ class Customization extends Model
 
     protected $fillable = [
         'user_id',
-        'title_preview',
-        'about_preview',
+        'about',
+        'title',
         'banner',
         'profile',
         'display_preview_class',

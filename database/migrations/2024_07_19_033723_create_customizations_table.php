@@ -15,8 +15,8 @@ class CreateCustomizationsTable extends Migration
         Schema::create('customizations', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('title')->default('Title');
-            $table->text('about')->nullable();
+            $table->string('title')->nullable();
+            $table->string('about')->nullable();
             $table->string('banner')->nullable();
             $table->string('profile')->nullable();
             $table->string('display_preview_class')->nullable();

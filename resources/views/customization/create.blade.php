@@ -15,31 +15,30 @@
 
         <div class="container">
             <h1>Create Customization</h1>
-            <form id="previewForm" class="space-y-4" action="{{ route('customization.store') }}" method="POST"
-                enctype="multipart/form-data">
+            <form id="previewForm" class="space-y-4" action="{{ route('customization.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-
+                
                 <label for="displayPreviewInput">Input display class</label>
                 <input type="text" name="display_preview_class" id="displayPreviewInput" value="">
                 <br>
-
+                
                 <label for="titlePreviewInput">Input title text</label>
-                <input type="text" name="title" id="titlePreviewInput" value="Title">
+                <input type="text" name="title_input" id="titlePreviewInput" value="">
                 <br>
-
+                
                 <label for="aboutPreviewInput">Input about text</label>
-                <input type="text" name="about" id="aboutPreviewInput" value="About goes here">
+                <input type="text" name="about_input" id="aboutPreviewInput" value="">
                 <br>
-
-                <input type="file" name="banner" id="bannerFileInput" class="" accept="image/*"
-                    onchange="previewImage('bannerFileInput', 'bannerPreview')">
-                <input type="file" name="profile" id="profileFileInput" class="" accept="image/*"
-                    onchange="previewImage('profileFileInput', 'profilePreview')">
-
+                
+                <input type="file" name="banner" id="bannerFileInput" class="" accept="image/*" onchange="previewImage('bannerFileInput', 'bannerPreview')">
+                <input type="file" name="profile" id="profileFileInput" class="" accept="image/*" onchange="previewImage('profileFileInput', 'profilePreview')">
+                
                 <button class="p-2 bg-white" type="submit">Save Previews</button>
             </form>
         </div>
+        
+        
 
         <div
             class="mx-auto overflow-hidden rounded-3xl border-8 border-black bg-black w-[380px] xl:w-[380px] h-[800px] mt-6 xl:mt-0">

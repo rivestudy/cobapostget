@@ -1,5 +1,5 @@
 <?php
-// app/Http/Controllers/CustomizationController.php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -13,28 +13,24 @@ class CustomizationController extends Controller
     }
 
     public function store(Request $request)
-{
-    $request->validate([
-        'title' => 'required|string|max:255',
-        'about' => 'required|string',
-        'banner' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        'profile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-    ]);
+    {
+        $request->validate([
+            'banner' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'profile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
 
-    $bannerPath = $request->file('banner') ? $request->file('banner')->store('banners', 'public') : null;
-    $profilePath = $request->file('profile') ? $request->file('profile')->store('profiles', 'public') : null;
+        $bannerPath = $request->file('banner') ? $request->file('banner')->store('banners', 'public') : null;
+        $profilePath = $request->file('profile') ? $request->file('profile')->store('profiles', 'public') : null;
 
-    Customization::create([
-        'user_id' => $request->user()->id,
-        'title' => $request->input('title', 'Title'),
-        'about' => $request->input('about', 'About goes here'),
-        'banner' => $bannerPath,
-        'profile' => $profilePath,
-        'display_preview_class' => $request->input('display_preview_class', ''),
-    ]);
+        Customization::create([
+            'user_id' => $request->user()->id,
+            'banner' => $bannerPath,
+            'profile' => $profilePath,
+            'title' => $request->input('title_input'), 
+            'about' => $request->input('about_input'), 
+            'display_preview_class' => $request->input('display_preview_class'),
+        ]);
 
-    return redirect()->route('home');
+        return redirect()->route('home');
+    }
 }
-
-}
-
