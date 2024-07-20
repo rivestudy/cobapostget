@@ -31,20 +31,28 @@ class CustomizationController extends Controller
             'banner' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'profile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
+    
         $customization = Customization::where('user_id', auth()->user()->id)->firstOrFail();
-
-        $bannerPath = $request->file('banner') ? $request->file('banner')->store('banners', 'public') : null;
-        $profilePath = $request->file('profile') ? $request->file('profile')->store('profiles', 'public') : null;
-
-        $customization->update([
-            'banner' => $bannerPath,
-            'profile' => $profilePath,
-            'title' => $request->input('title_input', $customization->title),
-            'about' => $request->input('about_input', $customization->about),
-            'display_preview_class' => $request->input('display_preview_class', $customization->display_preview_class),
-        ]);
-
+    
+        // Handle banner update
+        if ($request->hasFile('banner')) {
+            $bannerPath = $request->file('banner')->store('banners', 'public');
+            $customization->banner = $bannerPath;
+        }
+    
+        // Handle profile update
+        if ($request->hasFile('profile')) {
+            $profilePath = $request->file('profile')->store('profiles', 'public');
+            $customization->profile = $profilePath;
+        }
+    
+        // Update other fields
+        $customization->title = $request->input('title_input', $customization->title);
+        $customization->about = $request->input('about_input', $customization->about);
+        $customization->display_preview_class = $request->input('display_preview_class', $customization->display_preview_class);
+        $customization->save();
+    
         return redirect()->route('home');
     }
+    
 }

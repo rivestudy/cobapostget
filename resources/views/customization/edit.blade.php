@@ -10,57 +10,49 @@
 </head>
 
 <body>
-    <div class="w-full bg-gray-300 text-xl font-bold">
+    <div class="w-full text-xl font-bold bg-gray-300">
         <!-- resources/views/customization/create.blade.php -->
 
         <div class="container">
             <h1>Edit Customization</h1>
-            <form id="previewForm" class="space-y-4" action="{{ route('customization.update') }}" method="POST" enctype="multipart/form-data">
+            <form id="previewForm" class="space-y-4" action="{{ route('customization.update') }}" method="POST"
+                enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                
+
                 <label for="displayPreviewInput">Input display class</label>
-                <input type="text" name="display_preview_class" id="displayPreviewInput" value="{{ $customization->display_preview_class }}">
+                <input type="text" name="display_preview_class" id="displayPreviewInput"
+                    value="{{ $customization->display_preview_class }}">
                 <br>
-                
+
                 <label for="titlePreviewInput">Input title text</label>
                 <input type="text" name="title_input" id="titlePreviewInput" value="{{ $customization->title }}">
                 <br>
-                
+
                 <label for="aboutPreviewInput">Input about text</label>
                 <input type="text" name="about_input" id="aboutPreviewInput" value="{{ $customization->about }}">
                 <br>
-                
-                <input type="file" name="banner" id="bannerFileInput" class="" accept="image/*" onchange="previewImage('bannerFileInput', 'bannerPreview')">
-                <input type="file" name="profile" id="profileFileInput" class="" accept="image/*" onchange="previewImage('profileFileInput', 'profilePreview')">
-                
-                @if ($customization->banner)
-                    <img src="{{ asset('storage/' . $customization->banner) }}" id="bannerPreview" alt="Banner">
-                @endif
-                
-                @if ($customization->profile)
-                    <img src="{{ asset('storage/' . $customization->profile) }}" id="profilePreview" alt="Profile">
-                @endif
-                
+
+                <input type="file" name="banner" id="bannerFileInput" class="" accept="image/*">
+                <input type="file" name="profile" id="profileFileInput" class="" accept="image/*">
                 <button class="p-2 bg-white" type="submit">Save Previews</button>
+
             </form>
         </div>
-        
-        
-        
-
         <div
             class="mx-auto overflow-hidden rounded-3xl border-8 border-black bg-black w-[380px] xl:w-[380px] h-[800px] mt-6 xl:mt-0">
             <h1 class="w-full px-3 text-right text-white bg-gray-400 rounded-t-2xl">5G ᯤ | 50%</h1>
             <div class="h-[170px] w-full bg-gray-300">
-                <img class="max-h-[170px] w-full object-cover" src="" id="bannerPreview" alt="Banner">
+                @if ($customization->banner)
+                    <img src="{{ asset('storage/' . $customization->banner) }}" id="bannerPreview" alt="Banner">
+                @endif
             </div>
             <div class="display px-3 pt-2 my-auto h-full max-h-[670px] mb-0 w-full bg-white flex-grow-1 rounded-b-2xl"
                 id="displayPreview">
                 <div class="">
-                    <img src="{{ asset('asset/pp.png') }}"
-                        class="size-[90px] object-cover rounded-full mx-auto bg-gray-400 border border-black -mt-12 mb-2 "
-                        id="profilePreview" alt="Profile">
+                    @if ($customization->profile)
+                        <img src="{{ asset('storage/' . $customization->profile) }}" id="profilePreview" alt="Profile">
+                    @endif
                 </div>
                 <h1 class="mb-2 text-xl font-bold text-center break-words whitespace-normal Title" id="titlePreview">
                     Title</h1>
@@ -76,7 +68,20 @@
         <button class="p-2 bg-white" onclick="setProps()">test</button>
     </div>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <script>
+        $(document).ready(function() {
+            $("#bannerFileInput, #profileFileInput").change(function() {
+                var file = this.files[0];
+                var fileSize = (file.size / 1024 / 1024).toFixed(2); // in MB
+
+                if (fileSize > 2) {
+                    alert("File size must be less than 2 MB.");
+                    $(this).val('');
+                    return false;
+                }
+            });
+        });
         function setProps() {
             document.getElementById('displayPreviewInput').value = document.getElementById('displayPreview').className;
             document.getElementById('titlePreviewInput').value = document.getElementById('titlePreview').innerText;
