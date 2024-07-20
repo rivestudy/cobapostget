@@ -14,29 +14,38 @@
         <!-- resources/views/customization/create.blade.php -->
 
         <div class="container">
-            <h1>Create Customization</h1>
-            <form id="previewForm" class="space-y-4" action="{{ route('customization.store') }}" method="POST" enctype="multipart/form-data">
+            <h1>Edit Customization</h1>
+            <form id="previewForm" class="space-y-4" action="{{ route('customization.update') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                 
                 <label for="displayPreviewInput">Input display class</label>
-                <input type="text" name="display_preview_class" id="displayPreviewInput" value="">
+                <input type="text" name="display_preview_class" id="displayPreviewInput" value="{{ $customization->display_preview_class }}">
                 <br>
                 
                 <label for="titlePreviewInput">Input title text</label>
-                <input type="text" name="title_input" id="titlePreviewInput" value="">
+                <input type="text" name="title_input" id="titlePreviewInput" value="{{ $customization->title }}">
                 <br>
                 
                 <label for="aboutPreviewInput">Input about text</label>
-                <input type="text" name="about_input" id="aboutPreviewInput" value="">
+                <input type="text" name="about_input" id="aboutPreviewInput" value="{{ $customization->about }}">
                 <br>
                 
                 <input type="file" name="banner" id="bannerFileInput" class="" accept="image/*" onchange="previewImage('bannerFileInput', 'bannerPreview')">
                 <input type="file" name="profile" id="profileFileInput" class="" accept="image/*" onchange="previewImage('profileFileInput', 'profilePreview')">
                 
+                @if ($customization->banner)
+                    <img src="{{ asset('storage/' . $customization->banner) }}" id="bannerPreview" alt="Banner">
+                @endif
+                
+                @if ($customization->profile)
+                    <img src="{{ asset('storage/' . $customization->profile) }}" id="profilePreview" alt="Profile">
+                @endif
+                
                 <button class="p-2 bg-white" type="submit">Save Previews</button>
             </form>
         </div>
+        
         
         
 

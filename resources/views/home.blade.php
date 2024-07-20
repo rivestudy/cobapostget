@@ -30,7 +30,7 @@
         <p>No customizations found.</p>
         @endif
     
-        <a href="{{ route('customization.create') }}">Create Customization</a>
+        <a href="{{ route('customization.edit') }}">Create Customization</a>
     </div>
 
 </body>

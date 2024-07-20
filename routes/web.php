@@ -22,6 +22,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware(
 
 // Grouped routes with auth middleware
 Route::middleware(['auth'])->group(function () {
-    Route::get('/customization/create', [CustomizationController::class, 'create'])->name('customization.create');
-    Route::post('/customization', [CustomizationController::class, 'store'])->name('customization.store');
+    Route::get('/customization/edit', [CustomizationController::class, 'edit'])->name('customization.edit');
+    Route::post('/customization/update', [CustomizationController::class, 'update'])->name('customization.update');
 });
+
