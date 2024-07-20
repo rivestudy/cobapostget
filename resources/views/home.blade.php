@@ -31,6 +31,10 @@
         @endif
     
         <a href="{{ route('customization.edit') }}">Create Customization</a>
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit">Logout</button>
+        </form>
     </div>
 
 </body>

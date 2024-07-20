@@ -11,8 +11,6 @@
 
 <body>
     <div class="w-full text-xl font-bold bg-gray-300">
-        <!-- resources/views/customization/create.blade.php -->
-
         <div class="container">
             <h1>Edit Customization</h1>
             <form id="previewForm" class="space-y-4" action="{{ route('customization.update') }}" method="POST"

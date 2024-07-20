@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Customization;
+use Illuminate\Support\Facades\Storage;
+
 
 class CustomizationController extends Controller
 {
@@ -12,7 +14,6 @@ class CustomizationController extends Controller
         $user_id = auth()->user()->id;
         $customization = Customization::where('user_id', $user_id)->first();
 
-        // If no customization exists, create a new one
         if (!$customization) {
             $customization = Customization::create([
                 'user_id' => $user_id,
@@ -26,33 +27,44 @@ class CustomizationController extends Controller
     }
 
     public function update(Request $request)
-    {
-        $request->validate([
-            'banner' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'profile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-    
-        $customization = Customization::where('user_id', auth()->user()->id)->firstOrFail();
-    
-        // Handle banner update
-        if ($request->hasFile('banner')) {
-            $bannerPath = $request->file('banner')->store('banners', 'public');
-            $customization->banner = $bannerPath;
+{
+    $request->validate([
+        'banner' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        'profile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ]);
+
+    $customization = Customization::where('user_id', auth()->user()->id)->firstOrFail();
+
+    // Handle banner update
+    if ($request->hasFile('banner')) {
+        // Delete old banner if exists
+        if ($customization->banner) {
+            Storage::disk('public')->delete($customization->banner);
         }
-    
-        // Handle profile update
-        if ($request->hasFile('profile')) {
-            $profilePath = $request->file('profile')->store('profiles', 'public');
-            $customization->profile = $profilePath;
-        }
-    
-        // Update other fields
-        $customization->title = $request->input('title_input', $customization->title);
-        $customization->about = $request->input('about_input', $customization->about);
-        $customization->display_preview_class = $request->input('display_preview_class', $customization->display_preview_class);
-        $customization->save();
-    
-        return redirect()->route('home');
+
+        // Upload new banner
+        $bannerPath = $request->file('banner')->store('banners', 'public');
+        $customization->banner = $bannerPath;
     }
-    
+
+    // Handle profile update
+    if ($request->hasFile('profile')) {
+        // Delete old profile if exists
+        if ($customization->profile) {
+            Storage::disk('public')->delete($customization->profile);
+        }
+
+        // Upload new profile
+        $profilePath = $request->file('profile')->store('profiles', 'public');
+        $customization->profile = $profilePath;
+    }
+
+    // Update other fields
+    $customization->title = $request->input('title_input', $customization->title);
+    $customization->about = $request->input('about_input', $customization->about);
+    $customization->display_preview_class = $request->input('display_preview_class', $customization->display_preview_class);
+    $customization->save();
+
+    return redirect()->route('home');
+}
 }
