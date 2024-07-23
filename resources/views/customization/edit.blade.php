@@ -29,6 +29,11 @@
                     value="{{ $customization->display_preview_class }}">
                 <br>
 
+                <label for="displayPreviewInput">Input display Bg</label>
+                <input type="text" name="display_preview_bg" id="displayPreviewBg"
+                    value="{{ $customization->display_preview_bg }}">
+                <br>
+
                 <label for="titlePreviewInput">Input title text</label>
                 <input type="text" name="title_input" id="titlePreviewInput" value="{{ $customization->title }}">
                 <br>
@@ -37,29 +42,32 @@
                 <input type="text" name="about_input" id="aboutPreviewInput" value="{{ $customization->about }}">
                 <br>
 
-                <input type="file" name="banner" id="bannerFileInput" class="" accept="image/*">
-                <input type="file" name="profile" id="profileFileInput" class="" accept="image/*">
-                <button class="p-2 bg-white" type="submit">Save Previews</button>
+                <input type="file" name="banner" id="bannerFileInput" class="" accept="image/*"
+                    onchange="previewImage('bannerFileInput', 'bannerPreview')">
+                <input type="file" name="profile" id="profileFileInput" class="" accept="image/*"
+                    onchange="previewImage('profileFileInput', 'profilePreview')">
+                <button class="p-2 bg-white" type="submit" onclick="setProps()">Save Previews</button>
                 <div
-                    class="mx-auto overflow-hidden rounded-3xl border-8 border-black bg-black w-[380px] xl:w-[380px] h-[800px] mt-6 xl:mt-0">
+                    class="mx-auto overflow-hidden rounded-3xl border-8 border-black bg-black w-[420px] xl:w-[420px] h-[900px] mt-6 xl:mt-0">
                     <h1 class="w-full px-3 text-right text-white bg-gray-400 rounded-t-2xl">5G ᯤ | 50%</h1>
-                    <div class="h-[170px] w-full bg-gray-300">
+                    <div class="bg-gray-200">
                         @if ($customization->banner)
-                            <img src="{{ asset('storage/' . $customization->banner) }}" id="bannerPreview"
+                            <img class="object-cover h-[190px] w-full" src="{{ asset('storage/' . $customization->banner) }}" id="bannerPreview"
                                 alt="Banner">
                         @endif
                     </div>
-                    <div class="{{ $customization->display_preview_class }} displayPreview" id="displayPreview">
-                        <div class="">
+                    <div class="{{ $customization->display_preview_class }} displayPreview" style="{{ $customization->display_preview_bg }} {{ $customization->display_preview_fc }}" id="displayPreview">
+                        <div class="w-24 mx-auto bg-gray-600 rounded-full">
                             @if ($customization->profile)
-                                <img src="{{ asset('storage/' . $customization->profile) }}" id="profilePreview"
+                                <img class="object-cover w-24 h-24 -mt-12 rounded-full" src="{{ asset('storage/' . $customization->profile) }}" id="profilePreview"
                                     alt="Profile">
                             @endif
                         </div>
                         <h1 class="mb-2 text-xl font-bold text-center break-words whitespace-normal Title"
                             id="titlePreview">
                             {{ $customization->title }}</h1>
-                        <p class="mb-4 text-center break-words whitespace-normal About" id="aboutPreview">{{ $customization->about }}</p>
+                        <p class="mb-4 text-center break-words whitespace-normal About" id="aboutPreview">
+                            {{ $customization->about }}</p>
                         <div id="linkContainer" class="flex justify-center mx-auto space-x-2 previewButtons"></div>
                         <div id="buttonContainer" class="justify-center w-full mt-4 space-y-2"></div>
                     </div>
@@ -93,7 +101,7 @@
             const grad2 = document.getElementById('grad-2').value;
             const direction = document.getElementById('gradient-direction').value;
             const customGradient = `linear-gradient(${direction}, ${grad1}, ${grad2})`;
-            changeBackground(customGradient);
+            dataset.background = customGradient;
             document.getElementById('color1').textContent = grad1;
             document.getElementById('color2').textContent = grad2;
             updateDisplay();
@@ -105,20 +113,27 @@
         }
 
         function updateDisplay() {
+
+            //get from database
+            const databg = @json($customization->display_preview_bg);
+            const datafont = @json($customization->display_preview_font);
+            const datafc = @json($customization->display_preview_fc);
             const displayElement = document.querySelector('.displayPreview');
 
-            if (dataset.background === '') {
-                dataset.background = 'bg-white';
-            }
 
-            if (dataset.background.startsWith('linear-gradient')) {
+            if (dataset.background === '') {
+                displayElement.className =
+                    `displayPreview px-3 pt-2 my-auto h-full max-h-[670px] mb-0 w-full flex-grow-1 rounded-b-2xl font-${dataset.font}`;
+                displayElement.style.backgroundImage = databg;
+            } else if (dataset.font === '') {
+                displayElement.className =
+                    `displayPreview px-3 pt-2 my-auto h-full max-h-[670px] mb-0 w-full ${datafont} flex-grow-1 rounded-b-2xl`;
                 displayElement.style.backgroundImage = dataset.background;
             } else {
-                displayElement.style.backgroundImage = '';
+                displayElement.className =
+                    `displayPreview px-3 pt-2 my-auto h-full max-h-[670px] mb-0 w-full flex-grow-1 rounded-b-2xl font-${dataset.font}`;
+                displayElement.style.backgroundImage = dataset.background;
             }
-            
-            displayElement.className =
-                `displayPreview px-3 pt-2 my-auto h-full max-h-[670px] mb-0 w-full ${dataset.background} flex-grow-1 rounded-b-2xl font-${dataset.font}`;
 
             if (dataset.fontcolor !== '') {
                 displayElement.style.color = dataset.fontcolor;
@@ -162,6 +177,7 @@
 
         function setProps() {
             document.getElementById('displayPreviewInput').value = document.querySelector('.displayPreview').className;
+            document.getElementById('displayPreviewBg').value = 'background-image: ' + document.querySelector('.displayPreview').style.backgroundImage +'; color: ' + document.querySelector('.displayPreview').style.color;
             document.getElementById('titlePreviewInput').value = document.getElementById('titlePreview').innerText;
             document.getElementById('aboutPreviewInput').value = document.getElementById('aboutPreview').innerText;
             return true;
@@ -213,7 +229,7 @@
             document.querySelector(`.About`).innerText = abouttext;
         }
 
-        
+
 
         function generateLinkInput(iconClass) {
             const linkInputValue = document.getElementById('linkInput').value;

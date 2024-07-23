@@ -6,10 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    // database/migrations/xxxx_xx_xx_create_social_buttons_table.php
+  
 public function up()
 {
     Schema::create('social_buttons', function (Blueprint $table) {
@@ -28,4 +25,4 @@ public function down()
     Schema::dropIfExists('social_buttons');
 }
 
-};
+};   

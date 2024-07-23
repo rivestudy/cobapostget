@@ -16,6 +16,9 @@ class Customization extends Model
         'banner',
         'profile',
         'display_preview_class',
+        'display_preview_bg',
+        'display_preview_font',
+        'display_preview_fc',
     ];
 }
 

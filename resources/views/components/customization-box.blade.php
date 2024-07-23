@@ -89,19 +89,19 @@
         <div class="p-3 bg-white rounded-lg shadow-lg">
             <div class="grid w-full grid-cols-3 mx-auto gap-x-2 md:grid-cols-6">
                 <x-button class="w-full py-2 bg-gradient-to-tr from-red-700 to-rose-500"
-                    onclick="changeBackground('bg-gradient-to-tr from-red-700 to-rose-500'), changeFontBlack()">
+                    onclick="changeBackground('linear-gradient(to top right, #b91c1c, #f43f5e)'), changeFontBlack()">
                     Red-Rose </x-button>
                 <x-button class="w-full py-2 bg-gradient-to-tr from-green-700 to-lime-500"
-                    onclick="changeBackground('bg-gradient-to-tr from-green-700 to-lime-500'), changeFontBlack()">
+                    onclick="changeBackground('linear-gradient(to top right, #1D4E1F, #84CC16'), changeFontBlack()">
                     Green-Lime </x-button>
                 <x-button class="w-full py-2 bg-gradient-to-tr from-blue-700 to-sky-500"
-                    onclick="changeBackground('bg-gradient-to-tr from-blue-700 to-sky-500'), changeFontBlack()">
+                    onclick="changeBackground('linear-gradient(to top right, #1C3D5A, #6FB1FC'), changeFontBlack()">
                     Blue-Sky </x-button>
                 <x-button class="w-full py-2 bg-gradient-to-tr from-gray-300 to-white"
-                    onclick="changeBackground('bg-gradient-to-tr from-gray-300 to-white'), changeFontBlack()">
+                    onclick="changeBackground('linear-gradient(to top right, #CBD5E0, #FFFFFF'), changeFontBlack()">
                     Gray-White </x-button>
                 <x-button class="w-full py-2 text-white bg-gradient-to-tr from-gray-900 to-slate-700"
-                    onclick="changeBackground('bg-gradient-to-tr from-gray-900 to-slate-700'), changeFontWhite()">
+                    onclick="changeBackground('linear-gradient(to top right, #1F2937, #6B7280'), changeFontWhite()">
                     Black-Gray </x-button>
                 <x-button class="w-full py-2 bg-gray-300" onclick="openWarna()"> Custom </x-button>
             </div>

@@ -20,6 +20,9 @@ class CreateCustomizationsTable extends Migration
             $table->string('banner')->nullable();
             $table->string('profile')->nullable();
             $table->string('display_preview_class')->nullable();
+            $table->string('display_preview_bg')->nullable();
+            $table->string('display_preview_font')->nullable();
+            $table->string('display_preview_fc')->nullable();
             $table->timestamps();
         
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

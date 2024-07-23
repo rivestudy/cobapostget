@@ -20,6 +20,8 @@ class CustomizationController extends Controller
                 'title' => 'Default Title',
                 'about' => 'Default About',
                 'display_preview_class' => '',
+                'display_preview_bg' => '',
+                'display_preview_font' => '',
             ]);
         }
 
@@ -63,6 +65,9 @@ class CustomizationController extends Controller
     $customization->title = $request->input('title_input', $customization->title);
     $customization->about = $request->input('about_input', $customization->about);
     $customization->display_preview_class = $request->input('display_preview_class', $customization->display_preview_class);
+    $customization->display_preview_bg = $request->input('display_preview_bg', $customization->display_preview_bg);
+    $customization->display_preview_font = $request->input('display_preview_font', $customization->display_preview_font);
+    $customization->display_preview_fc = $request->input('display_preview_fc', $customization->display_preview_fc);
     $customization->save();
 
     return redirect()->route('home');
