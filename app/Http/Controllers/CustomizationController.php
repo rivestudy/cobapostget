@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Customization;
+use App\Models\LinkButton;
+use App\Models\SocialButton;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -13,15 +15,31 @@ class CustomizationController extends Controller
     {
         $user_id = auth()->user()->id;
         $customization = Customization::where('user_id', $user_id)->first();
+        $socialbutton = SocialButton::where('user_id', $user_id)->first();
+        $linkbutton = LinkButton::where('user_id', $user_id)->first();
 
         if (!$customization) {
             $customization = Customization::create([
                 'user_id' => $user_id,
-                'title' => 'Default Title',
-                'about' => 'Default About',
+                'title' => 'Title',
+                'about' => 'About goes here',
                 'display_preview_class' => '',
                 'display_preview_bg' => '',
                 'display_preview_font' => '',
+            ]);
+        }
+        if(!$socialbutton){
+            $socialbutton = SocialButton::create([
+                'user_id' => $user_id,
+                'url'=> '',
+                'icon'=> '',
+            ]);
+        }
+        if(!$linkbutton){
+            $linkbutton = LinkButton::create([
+                'user_id' => $user_id,
+                'url'=> '',
+                'text'=> '',
             ]);
         }
 
@@ -66,8 +84,6 @@ class CustomizationController extends Controller
     $customization->about = $request->input('about_input', $customization->about);
     $customization->display_preview_class = $request->input('display_preview_class', $customization->display_preview_class);
     $customization->display_preview_bg = $request->input('display_preview_bg', $customization->display_preview_bg);
-    $customization->display_preview_font = $request->input('display_preview_font', $customization->display_preview_font);
-    $customization->display_preview_fc = $request->input('display_preview_fc', $customization->display_preview_fc);
     $customization->save();
 
     return redirect()->route('home');

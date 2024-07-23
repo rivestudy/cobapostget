@@ -43,23 +43,34 @@
                 <br>
 
                 <input type="file" name="banner" id="bannerFileInput" class="" accept="image/*"
-                    onchange="previewImage('bannerFileInput', 'bannerPreview')">
+                    oninput="previewImage('bannerFileInput', 'bannerPreview')">
                 <input type="file" name="profile" id="profileFileInput" class="" accept="image/*"
-                    onchange="previewImage('profileFileInput', 'profilePreview')">
+                    oninput="previewImage('profileFileInput', 'profilePreview')">
+
+                <div class="linkButtonsContainer" id="linkButtonsContainer">
+
+                </div>
+                <div class="socialButtonsContainer" id="socialButtonsContainer">
+
+                </div>
                 <button class="p-2 bg-white" type="submit" onclick="setProps()">Save Previews</button>
                 <div
                     class="mx-auto overflow-hidden rounded-3xl border-8 border-black bg-black w-[420px] xl:w-[420px] h-[900px] mt-6 xl:mt-0">
                     <h1 class="w-full px-3 text-right text-white bg-gray-400 rounded-t-2xl">5G ᯤ | 50%</h1>
                     <div class="bg-gray-200">
                         @if ($customization->banner)
-                            <img class="object-cover h-[190px] w-full" src="{{ asset('storage/' . $customization->banner) }}" id="bannerPreview"
+                            <img class="object-cover h-[190px] w-full"
+                                src="{{ asset('storage/' . $customization->banner) }}" id="bannerPreview"
                                 alt="Banner">
                         @endif
                     </div>
-                    <div class="{{ $customization->display_preview_class }} displayPreview" style="{{ $customization->display_preview_bg }} {{ $customization->display_preview_fc }}" id="displayPreview">
+                    <div class="{{ $customization->display_preview_class }} displayPreview"
+                        style="{{ $customization->display_preview_bg }} {{ $customization->display_preview_fc }}"
+                        id="displayPreview">
                         <div class="w-24 mx-auto bg-gray-600 rounded-full">
                             @if ($customization->profile)
-                                <img class="object-cover w-24 h-24 -mt-12 rounded-full" src="{{ asset('storage/' . $customization->profile) }}" id="profilePreview"
+                                <img class="object-cover w-24 h-24 -mt-12 rounded-full"
+                                    src="{{ asset('storage/' . $customization->profile) }}" id="profilePreview"
                                     alt="Profile">
                             @endif
                         </div>
@@ -176,12 +187,66 @@
         });
 
         function setProps() {
-            document.getElementById('displayPreviewInput').value = document.querySelector('.displayPreview').className;
-            document.getElementById('displayPreviewBg').value = 'background-image: ' + document.querySelector('.displayPreview').style.backgroundImage +'; color: ' + document.querySelector('.displayPreview').style.color;
-            document.getElementById('titlePreviewInput').value = document.getElementById('titlePreview').innerText;
-            document.getElementById('aboutPreviewInput').value = document.getElementById('aboutPreview').innerText;
+            // Check if the elements exist before accessing them
+            const displayPreviewInput = document.getElementById('displayPreviewInput');
+            const displayPreview = document.querySelector('.displayPreview');
+            const titlePreviewInput = document.getElementById('titlePreviewInput');
+            const aboutPreviewInput = document.getElementById('aboutPreviewInput');
+            const socialButtonsContainer = document.getElementById('socialButtonsContainer');
+            const linkButtonsContainer = document.getElementById('linkButtonsContainer');
+
+            if (!displayPreviewInput || !displayPreview || !titlePreviewInput || !aboutPreviewInput ||
+        !socialButtonsContainer || !linkButtonsContainer) {
+        console.error('One or more elements not found.');
+        return false;
+    }
+
+            // Set values for display preview
+            displayPreviewInput.value = displayPreview.className;
+            document.getElementById('displayPreviewBg').value =
+                `background-image: ${displayPreview.style.backgroundImage}; color: ${displayPreview.style.color}`;
+            titlePreviewInput.value = document.getElementById('titlePreview').innerText;
+            aboutPreviewInput.value = document.getElementById('aboutPreview').innerText;
+
+            // Clear existing content in containers
+            socialButtonsContainer.innerHTML = '-';
+            linkButtonsContainer.innerHTML = '-';
+
+            // Set values for social buttons
+            const socialButtons = document.querySelectorAll('.social-button');
+            socialButtons.forEach((button, index) => {
+                let inputUrl = document.createElement('input');
+                inputUrl.type = 'text';
+                inputUrl.name = `socialButtons[${index}][url]`;
+                inputUrl.value = button.href;
+                socialButtonsContainer.appendChild(inputUrl);
+
+                let inputIcon = document.createElement('input');
+                inputIcon.type = 'text';
+                inputIcon.name = `socialButtons[${index}][icon]`;
+                inputIcon.value = button.innerHTML;
+                socialButtonsContainer.appendChild(inputIcon);
+            });
+
+            // Set values for link buttons
+            const linkButtons = document.querySelectorAll('.link-button');
+            linkButtons.forEach((button, index) => {
+                let textInput = document.createElement('input');
+                textInput.type = 'text';
+                textInput.name = `linkButtons[${index}][text]`;
+                textInput.value = button.textContent;
+                linkButtonsContainer.appendChild(textInput);
+
+                let urlInput = document.createElement('input');
+                urlInput.type = 'text';
+                urlInput.name = `linkButtons[${index}][url]`;
+                urlInput.value = button.href;
+                linkButtonsContainer.appendChild(urlInput);
+            });
+
             return true;
         }
+
 
         function previewImage(inputId, imgId) {
             const input = document.getElementById(inputId);
@@ -228,8 +293,6 @@
             const abouttext = document.getElementById('aboutInput').value;
             document.querySelector(`.About`).innerText = abouttext;
         }
-
-
 
         function generateLinkInput(iconClass) {
             const linkInputValue = document.getElementById('linkInput').value;

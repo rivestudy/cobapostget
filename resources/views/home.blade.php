@@ -42,7 +42,7 @@
         <p>No customizations found.</p>
         @endif
     
-        <a href="{{ route('customization.edit') }}">Create Customization</a>
+        <a href="{{ route('customization.edit') }}">Edit</a>
         <form action="{{ route('logout') }}" method="POST">
             @csrf
             <button type="submit">Logout</button>

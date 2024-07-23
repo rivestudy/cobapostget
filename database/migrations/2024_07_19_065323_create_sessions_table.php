@@ -24,7 +24,6 @@ class CreateSessionsTable extends Migration
             $table->index('user_id');
             $table->index('last_activity');
             
-            
             $table->timestamps(); // This will create `created_at` and `updated_at` columns
         });
     }
