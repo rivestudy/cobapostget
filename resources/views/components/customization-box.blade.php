@@ -52,6 +52,9 @@
                 <textarea maxlength="100" class="flex-grow w-full h-full max-h-full min-h-full p-2 border border-gray-300 rounded-lg"
                     id="titleInput" placeholder="Masukkan Teks" oninput="updateTitle()"></textarea>
             </div>
+            <label for="slug_input">slug</label>
+                <input type="text" name="slug_input" id="slug_input">
+                <br>
         </div>
     </div>
     <div class="flex-grow mb-3">

@@ -14,12 +14,13 @@
 
 <body class="flex w-full">
     <div class="w-2/3">
-        <x-customization-box></x-customization-box>
+
+        <x-customization-box :social-buttons="$socialButtons" :link-buttons="$linkButtons"></x-customization-box>
     </div>
     <div class="w-1/3 text-xl font-bold bg-gray-300">
         <div class="">
             <h1>Edit Customization</h1>
-            <form id="previewForm" class="space-y-4" action="{{ route('customization.update') }}" method="POST"
+            <form method="POST" class="space-y-4" id="previewForm" action="{{ route('customization.update') }}"
                 enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
@@ -33,7 +34,9 @@
                 <input type="text" name="display_preview_bg" id="displayPreviewBg"
                     value="{{ $customization->display_preview_bg }}">
                 <br>
-
+                <label for="slug_input">slug</label>
+                <input type="text" name="slug_input" id="slug_input" value="{{ $customization->slug }}">
+                <br>
                 <label for="titlePreviewInput">Input title text</label>
                 <input type="text" name="title_input" id="titlePreviewInput" value="{{ $customization->title }}">
                 <br>
@@ -47,11 +50,9 @@
                 <input type="file" name="profile" id="profileFileInput" class="" accept="image/*"
                     oninput="previewImage('profileFileInput', 'profilePreview')">
 
-                <div class="linkButtonsContainer" id="linkButtonsContainer">
-
+                <div id="socialButtonsContainer">
                 </div>
-                <div class="socialButtonsContainer" id="socialButtonsContainer">
-
+                <div id="linkButtonsContainer">
                 </div>
                 <button class="p-2 bg-white" type="submit" onclick="setProps()">Save Previews</button>
                 <div
@@ -79,8 +80,21 @@
                             {{ $customization->title }}</h1>
                         <p class="mb-4 text-center break-words whitespace-normal About" id="aboutPreview">
                             {{ $customization->about }}</p>
-                        <div id="linkContainer" class="flex justify-center mx-auto space-x-2 previewButtons"></div>
-                        <div id="buttonContainer" class="justify-center w-full mt-4 space-y-2"></div>
+                        <div id="linkContainer" class="flex justify-center mx-auto space-x-2 previewButtons">
+                            @foreach ($socialButtons as $index => $socialButton)
+                                <div class="social-button-wrapper">
+                                    <a class="social-button {{ $socialButton->icon }}"
+                                        href="{{ $socialButton->url }}"></a>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div id="buttonContainer" class="justify-center w-full mt-4 space-y-2">
+                            @foreach ($linkButtons as $index => $linkButton)
+                                <a class="flex-grow block p-2 text-center border border-gray-300 rounded shadow-xl link-button-wrapper btnEx link-button"
+                                    href="{{ $linkButton->url }}">{{ $linkButton->text }}</a>
+                            @endforeach
+                        </div>
+
                     </div>
                 </div>
             </form>
@@ -187,7 +201,6 @@
         });
 
         function setProps() {
-            // Check if the elements exist before accessing them
             const displayPreviewInput = document.getElementById('displayPreviewInput');
             const displayPreview = document.querySelector('.displayPreview');
             const titlePreviewInput = document.getElementById('titlePreviewInput');
@@ -196,25 +209,26 @@
             const linkButtonsContainer = document.getElementById('linkButtonsContainer');
 
             if (!displayPreviewInput || !displayPreview || !titlePreviewInput || !aboutPreviewInput ||
-        !socialButtonsContainer || !linkButtonsContainer) {
-        console.error('One or more elements not found.');
-        return false;
-    }
+                !socialButtonsContainer || !linkButtonsContainer) {
+                console.error('One or more elements not found.');
+                return false;
+            }
 
-            // Set values for display preview
             displayPreviewInput.value = displayPreview.className;
             document.getElementById('displayPreviewBg').value =
                 `background-image: ${displayPreview.style.backgroundImage}; color: ${displayPreview.style.color}`;
             titlePreviewInput.value = document.getElementById('titlePreview').innerText;
             aboutPreviewInput.value = document.getElementById('aboutPreview').innerText;
 
-            // Clear existing content in containers
-            socialButtonsContainer.innerHTML = '-';
-            linkButtonsContainer.innerHTML = '-';
+            // Clear containers
+            socialButtonsContainer.innerHTML = '';
+            linkButtonsContainer.innerHTML = '';
 
-            // Set values for social buttons
+            console.log('Cleared containers');
+
             const socialButtons = document.querySelectorAll('.social-button');
             socialButtons.forEach((button, index) => {
+                console.log('Adding social button input', index);
                 let inputUrl = document.createElement('input');
                 inputUrl.type = 'text';
                 inputUrl.name = `socialButtons[${index}][url]`;
@@ -224,13 +238,13 @@
                 let inputIcon = document.createElement('input');
                 inputIcon.type = 'text';
                 inputIcon.name = `socialButtons[${index}][icon]`;
-                inputIcon.value = button.innerHTML;
+                inputIcon.value = button.className;
                 socialButtonsContainer.appendChild(inputIcon);
             });
 
-            // Set values for link buttons
             const linkButtons = document.querySelectorAll('.link-button');
             linkButtons.forEach((button, index) => {
+                console.log('Adding link button input', index);
                 let textInput = document.createElement('input');
                 textInput.type = 'text';
                 textInput.name = `linkButtons[${index}][text]`;
@@ -246,6 +260,8 @@
 
             return true;
         }
+
+
 
 
         function previewImage(inputId, imgId) {
@@ -312,9 +328,9 @@
             const deleteButton = createElement('button',
                 'h-full p-2 px-4 text-white bg-red-500 border border-red-500 rounded-lg', 'X');
 
-            const linkButton = createElement('a', 'flex items-center social-button', '');
+            const linkButton = createElement('a', `flex items-center social-button ${iconClass} text-xl`, '');
             linkButton.href = linkInputValue;
-            const iconElement = createElement('i', `${iconClass} text-xl`);
+
 
             deleteButton.onclick = () => {
                 linkInputs.removeChild(linkInputItem);
@@ -324,7 +340,6 @@
             linkInputItem.append(inputElement, deleteButton);
             linkInputs.appendChild(linkInputItem);
 
-            linkButton.appendChild(iconElement);
             linkContainer.appendChild(linkButton);
 
             document.getElementById('linkInput').value = '';
