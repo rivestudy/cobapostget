@@ -13,6 +13,16 @@
     }
 </style>
 <div class="flex-grow max-w-full p-8 shadow-2xl customizations">
+    <div class="flex-grow mb-3">
+        <h3 class="font-bold">Custom Link</h3>
+        <div class="p-3 bg-white rounded-lg shadow-lg">
+            <div class="flex items-center my-auto mb-0 space-x-2 rounded-lg h-11">
+                 <p class="font-bold">cdlink.id/</p>
+                <textarea class="flex-grow w-full h-full max-h-full min-h-full p-2 border border-gray-300 rounded-lg" id="slugInput"
+                    placeholder="linksaya">{{ $customizations->slug }}</textarea>
+            </div>
+        </div>
+    </div>
     <div class="flex space-x-6">
         <div class="w-1/2">
             <h3 class="font-bold">Banner</h3>
@@ -50,11 +60,8 @@
         <div class="p-3 bg-white rounded-lg shadow-lg">
             <div class="flex mb-0 space-x-2 h-11">
                 <textarea maxlength="100" class="flex-grow w-full h-full max-h-full min-h-full p-2 border border-gray-300 rounded-lg"
-                    id="titleInput" placeholder="Masukkan Teks" oninput="updateTitle()"></textarea>
+                    id="titleInput" placeholder="Masukkan Teks" oninput="updateTitle()">{{ $customizations->title }}</textarea>
             </div>
-            <label for="slug_input">slug</label>
-                <input type="text" name="slug_input" id="slug_input">
-                <br>
         </div>
     </div>
     <div class="flex-grow mb-3">
@@ -62,90 +69,64 @@
         <div class="p-3 bg-white rounded-lg shadow-lg">
             <div class="flex mb-0 space-x-2 rounded-lg h-28">
                 <textarea class="flex-grow w-full h-full max-h-full min-h-full p-2 bg-transparent border border-gray-300 rounded-lg"
-                    id="aboutInput" placeholder="Masukkan Teks" oninput="updateAbout()"></textarea>
+                    id="aboutInput" placeholder="Masukkan Teks" oninput="updateAbout()">{{ $customizations->about }}</textarea>
             </div>
         </div>
     </div>
     <div class="flex-grow mb-3">
         <h3 class="font-bold">Social Media</h3>
         <div class="p-3 bg-white rounded-lg shadow-lg">
-            <input type="text" class="flex-grow w-full h-full p-2 bg-transparent border border-gray-300 rounded-lg"
-                placeholder="Masukkan Link" id="linkInput" on>
-            <div id="linkInputs" class="mt-2 space-y-2"></div>
-            <div class="grid w-full grid-cols-5 mx-auto gap-x-2 justify-items-center md:grid-cols-10">
-                <x-button class="w-full p-2 bi-envelope-fill"
-                    onclick="generateLinkInput('bi-envelope-fill')"></x-button>
-                <x-button class="w-full p-2 bi-whatsapp" onclick="generateLinkInput('bi-whatsapp')"></x-button>
-                <x-button class="w-full p-2 bi-linkedin" onclick="generateLinkInput('bi-linkedin')"></x-button>
-                <x-button class="w-full p-2 bi-instagram" onclick="generateLinkInput('bi-instagram')"></x-button>
-                <x-button class="w-full p-2 bi-twitter-x" onclick="generateLinkInput('bi-twitter-x')"></x-button>
-                <x-button class="w-full p-2 bi-youtube" onclick="generateLinkInput('bi-youtube')"></x-button>
-                <x-button class="w-full p-2 bi-telegram" onclick="generateLinkInput('bi-telegram')"></x-button>
-                <x-button class="w-full p-2 bi-facebook" onclick="generateLinkInput('bi-facebook')"></x-button>
-                <x-button class="w-full p-2 bi-discord" onclick="generateLinkInput('bi-discord')"></x-button>
-                <x-button class="w-full p-2 bi-link-45deg" onclick="generateLinkInput('bi-link-45deg')"></x-button>
+            <div class="flex items-center mt-4 space-x-2">
+                <input type="text" id="newLinkInput" class="flex-grow p-2 border border-gray-300 rounded-lg"
+                    placeholder="Enter Link">
+                <select id="newIconSelect" class="flex w-[22.5%] p-2 border border-gray-300 rounded-lg">
+                    <option value="" disabled selected>Select Icon</option>
+                    <option value="bi-envelope-fill">Envelope</option>
+                    <option value="bi-whatsapp">WhatsApp</option>
+                    <option value="bi-linkedin">LinkedIn</option>
+                    <option value="bi-instagram">Instagram</option>
+                    <option value="bi-twitter-x">Twitter</option>
+                    <option value="bi-youtube">YouTube</option>
+                    <option value="bi-telegram">Telegram</option>
+                    <option value="bi-facebook">Facebook</option>
+                    <option value="bi-discord">Discord</option>
+                    <option value="bi-link-45deg">Link</option>
+                </select>
+                <button class="px-4 py-2 text-white bg-blue-500 rounded-lg " onclick="generateLinkInput()">+</button>
             </div>
-        </div>
-    </div>
-    <div class="mx-auto mb-3">
-        <h3 class="font-bold">Background</h3>
-        <div class="p-3 bg-white rounded-lg shadow-lg">
-            <div class="grid w-full grid-cols-3 mx-auto gap-x-2 md:grid-cols-6">
-                <x-button class="w-full py-2 bg-gradient-to-tr from-red-700 to-rose-500"
-                    onclick="changeBackground('linear-gradient(to top right, #b91c1c, #f43f5e)'), changeFontBlack()">
-                    Red-Rose </x-button>
-                <x-button class="w-full py-2 bg-gradient-to-tr from-green-700 to-lime-500"
-                    onclick="changeBackground('linear-gradient(to top right, #1D4E1F, #84CC16'), changeFontBlack()">
-                    Green-Lime </x-button>
-                <x-button class="w-full py-2 bg-gradient-to-tr from-blue-700 to-sky-500"
-                    onclick="changeBackground('linear-gradient(to top right, #1C3D5A, #6FB1FC'), changeFontBlack()">
-                    Blue-Sky </x-button>
-                <x-button class="w-full py-2 bg-gradient-to-tr from-gray-300 to-white"
-                    onclick="changeBackground('linear-gradient(to top right, #CBD5E0, #FFFFFF'), changeFontBlack()">
-                    Gray-White </x-button>
-                <x-button class="w-full py-2 text-white bg-gradient-to-tr from-gray-900 to-slate-700"
-                    onclick="changeBackground('linear-gradient(to top right, #1F2937, #6B7280'), changeFontWhite()">
-                    Black-Gray </x-button>
-                <x-button class="w-full py-2 bg-gray-300" onclick="openWarna()"> Custom </x-button>
-            </div>
-            <div id="modalWarna" class="fixed inset-0 items-center justify-center hidden bg-gray-800 bg-opacity-75">
-                <div class="w-1/3 p-6 mx-auto mt-[30vh] bg-white rounded-lg shadow-lg">
-                    <span class="text-2xl text-gray-700 cursor-pointer float-end close"
-                        onclick="closeWarna()">&times;</span>
-                    <div>
-                        <label for="grad-1">Custom Gradient</label>
-                        <div class="flex mt-2 space-x-2">
-                            <input class="w-1/6 h-12 rounded" type="color" id="grad-1"
-                                oninput="applyCustomBackground()">
-                            <p id="color1" class="w-1/6">#color1</p>
-                        </div>
-                        <div class="flex mt-2 space-x-2">
-                            <input class="w-1/6 h-12 rounded" type="color" id="grad-2"
-                                oninput="applyCustomBackground()">
-                            <p id="color2" class="w-1/6">#color2</p>
-                        </div>
-                        <div class="mt-4">
-                            <label for="gradient-direction">Gradient Direction</label>
-                            <select id="gradient-direction" class="w-1/3 p-2 border rounded"
-                                onchange="applyCustomBackground()">
-                                <option value="to top right">To Top Right</option>
-                                <option value="to bottom right">To Bottom Right</option>
-                                <option value="to bottom left">To Bottom Left</option>
-                                <option value="to top left">To Top Left</option>
-                                <option value="to top">To Top</option>
-                                <option value="to bottom">To Bottom</option>
-                                <option value="to left">To Left</option>
-                                <option value="to right">To Right</option>
-                        </div>
+            <div id="linkInputs" class="mt-2 space-y-2">
+                @foreach ($socialButtons as $index => $socialButton)
+                    <div class="flex items-center space-x-2 link-input-item" data-id="{{ $index }}">
+                        <input type="text" class="flex-grow p-2 border border-gray-300 rounded-lg"
+                            value="{{ $socialButton->url }}" data-icon="{{ $socialButton->icon }}">
+                        <select class="flex w-1/6 p-2 border border-gray-300 rounded-lg icon-select">
+                            <option value="bi-envelope-fill"
+                                {{ $socialButton->icon === 'bi-envelope-fill' ? 'selected' : '' }}>Envelope</option>
+                            <option value="bi-whatsapp" {{ $socialButton->icon === 'bi-whatsapp' ? 'selected' : '' }}>
+                                WhatsApp</option>
+                            <option value="bi-linkedin" {{ $socialButton->icon === 'bi-linkedin' ? 'selected' : '' }}>
+                                LinkedIn</option>
+                            <option value="bi-instagram" {{ $socialButton->icon === 'bi-instagram' ? 'selected' : '' }}>
+                                Instagram</option>
+                            <option value="bi-twitter-x" {{ $socialButton->icon === 'bi-twitter-x' ? 'selected' : '' }}>
+                                Twitter</option>
+                            <option value="bi-youtube" {{ $socialButton->icon === 'bi-youtube' ? 'selected' : '' }}>
+                                YouTube</option>
+                            <option value="bi-telegram" {{ $socialButton->icon === 'bi-telegram' ? 'selected' : '' }}>
+                                Telegram</option>
+                            <option value="bi-facebook" {{ $socialButton->icon === 'bi-facebook' ? 'selected' : '' }}>
+                                Facebook</option>
+                            <option value="bi-discord" {{ $socialButton->icon === 'bi-discord' ? 'selected' : '' }}>
+                                Discord</option>
+                            <option value="bi-link-45deg"
+                                {{ $socialButton->icon === 'bi-link-45deg' ? 'selected' : '' }}>Link</option>
+                        </select>
+                        <button class="px-4 py-2 text-white bg-blue-500 rounded-lg "
+                            onclick="updateLink({{ $index }})">Update</button>
+                        <button class="px-4 py-2 text-white bg-red-500 rounded-lg"
+                            onclick="removeLink(this, {{ $index }})">X</button>
                     </div>
-                    <div class="mt-4">
-                        <label for="font-c">Font Color</label>
-                        <div class="flex mt-2 space-x-2">
-                            <input type="color" id="font-c" class="w-1/6 h-10 p-0 rounded">
-                            <p id="font-color-hex" class="w-1/6">#color</p>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
@@ -155,18 +136,37 @@
             <div class="flex mb-4 space-x-2">
                 <input type="text"
                     class="flex-grow w-full h-full p-2 bg-transparent border border-gray-300 rounded-lg"
-                    placeholder="Masukkan teks" id="textInput">
+                    placeholder="Enter text" id="textInput">
                 <input type="text"
                     class="flex-grow w-full h-full p-2 bg-transparent border border-gray-300 rounded-lg"
-                    placeholder="Masukkan link" id="urlInput">
-                <button class="px-4 py-2 text-white bg-green-500 rounded-lg" onclick="addLinkButton()"><i
-                        class="bi bi-plus-lg"></i></button>
+                    placeholder="Enter link" id="urlInput">
+                <button class="px-4 py-2 text-white bg-green-500 rounded-lg" onclick="addLinkButton()">
+                    <i class="bi bi-plus-lg"></i>
+                </button>
             </div>
             <div id="linkContainers" class="space-y-2">
-                {{-- container link editor --}}
+                @foreach ($linkButtons as $index => $linkButton)
+                    <div class="flex items-center space-x-2 link-input-item" data-id="{{ $index }}">
+                        <input type="text" class="flex-grow p-2 border border-gray-300 rounded-lg"
+                            value="{{ $linkButton->text }}" data-url="{{ $linkButton->url }}">
+                        <input type="text" class="flex-grow p-2 border border-gray-300 rounded-lg"
+                            value="{{ $linkButton->url }}">
+                        <button class="px-4 py-2 text-white bg-blue-500 rounded-lg"
+                            onclick="updateLinkButton({{ $index }})">
+                            Update
+                        </button>
+                        <button class="px-4 py-2 text-white bg-red-500 rounded-lg"
+                            onclick="removeLinkButton(this, {{ $index }})">
+                            X
+                        </button>
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>
+
+    
+
     <div class="flex-grow mb-3">
         <h3 class="font-bold">Font</h3>
         <div class="p-3 bg-white rounded-lg shadow">

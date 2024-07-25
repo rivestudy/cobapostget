@@ -14,8 +14,7 @@
 
 <body class="flex w-full">
     <div class="w-2/3">
-
-        <x-customization-box :social-buttons="$socialButtons" :link-buttons="$linkButtons"></x-customization-box>
+        <x-customization-box :customizations="$customization" :social-buttons="$socialButtons" :link-buttons="$linkButtons"></x-customization-box>
     </div>
     <div class="w-1/3 text-xl font-bold bg-gray-300">
         <div class="">
@@ -65,7 +64,7 @@
                                 alt="Banner">
                         @endif
                     </div>
-                    <div class="{{ $customization->display_preview_class }} displayPreview"
+                    <div class="{{ $customization->display_preview_class }}"
                         style="{{ $customization->display_preview_bg }} {{ $customization->display_preview_fc }}"
                         id="displayPreview">
                         <div class="w-24 mx-auto bg-gray-600 rounded-full">
@@ -82,16 +81,18 @@
                             {{ $customization->about }}</p>
                         <div id="linkContainer" class="flex justify-center mx-auto space-x-2 previewButtons">
                             @foreach ($socialButtons as $index => $socialButton)
-                                <div class="social-button-wrapper">
-                                    <a class="social-button {{ $socialButton->icon }}"
-                                        href="{{ $socialButton->url }}"></a>
+                                <div class="social-button-wrapper" data-id="{{ $index }}">
+                                    <a class="{{ $socialButton->icon }}" href="{{ $socialButton->url }}"></a>
                                 </div>
                             @endforeach
                         </div>
+
                         <div id="buttonContainer" class="justify-center w-full mt-4 space-y-2">
                             @foreach ($linkButtons as $index => $linkButton)
-                                <a class="flex-grow block p-2 text-center border border-gray-300 rounded shadow-xl link-button-wrapper btnEx link-button"
-                                    href="{{ $linkButton->url }}">{{ $linkButton->text }}</a>
+                                <div class="link-button-wrapper" data-id="{{ $index }}">
+                                    <a class="flex-grow block p-2 text-center border border-gray-300 rounded shadow-xl link-button"
+                                        href="{{ $linkButton->url }}">{{ $linkButton->text }}</a>
+                                </div>
                             @endforeach
                         </div>
 
@@ -201,6 +202,7 @@
         });
 
         function setProps() {
+            const slugInput = document.getElementById('slug_input');
             const displayPreviewInput = document.getElementById('displayPreviewInput');
             const displayPreview = document.querySelector('.displayPreview');
             const titlePreviewInput = document.getElementById('titlePreviewInput');
@@ -219,6 +221,7 @@
                 `background-image: ${displayPreview.style.backgroundImage}; color: ${displayPreview.style.color}`;
             titlePreviewInput.value = document.getElementById('titlePreview').innerText;
             aboutPreviewInput.value = document.getElementById('aboutPreview').innerText;
+            slugInput.value = document.getElementById('slugInput').value;
 
             // Clear containers
             socialButtonsContainer.innerHTML = '';
@@ -260,10 +263,6 @@
 
             return true;
         }
-
-
-
-
         function previewImage(inputId, imgId) {
             const input = document.getElementById(inputId);
             const img = document.getElementById(imgId);
@@ -310,10 +309,14 @@
             document.querySelector(`.About`).innerText = abouttext;
         }
 
-        function generateLinkInput(iconClass) {
-            const linkInputValue = document.getElementById('linkInput').value;
-            if (!linkInputValue) return alert('Please enter a link first.');
+        document.addEventListener('DOMContentLoaded', function() {
+            @foreach ($socialButtons as $index => $socialButton)
+                createExistingLink('{{ $socialButton->icon }}', '{{ $socialButton->url }}',
+                    '{{ $index }}');
+            @endforeach
+        });
 
+        function createExistingLink(iconClass, url, id) {
             const createElement = (type, classes, value = '') => {
                 const el = document.createElement(type);
                 el.className = classes;
@@ -321,69 +324,209 @@
                 return el;
             };
 
-            const linkInputs = document.getElementById('linkInputs');
             const linkContainer = document.getElementById('linkContainer');
-            const linkInputItem = createElement('div', 'flex items-center space-x-2 link-input-item');
-            const inputElement = createElement('input', 'flex-grow p-2 border border-gray-300 rounded-lg', linkInputValue);
-            const deleteButton = createElement('button',
-                'h-full p-2 px-4 text-white bg-red-500 border border-red-500 rounded-lg', 'X');
+            const linkWrapper = createElement('div', 'social-button-wrapper', '');
+            linkWrapper.setAttribute('data-id', id);
 
             const linkButton = createElement('a', `flex items-center social-button ${iconClass} text-xl`, '');
-            linkButton.href = linkInputValue;
+            linkButton.href = url;
 
+            linkWrapper.appendChild(linkButton);
+            linkContainer.appendChild(linkWrapper);
+        }
 
-            deleteButton.onclick = () => {
-                linkInputs.removeChild(linkInputItem);
-                linkContainer.removeChild(linkButton);
+        function generateLinkInput() {
+            const linkInputValue = document.getElementById('newLinkInput').value.trim();
+            const iconSelect = document.getElementById('newIconSelect');
+            const iconClass = iconSelect.value;
+
+            if (!linkInputValue) return alert('Please enter a link first.');
+            if (!iconClass) return alert('Please select an icon.');
+
+            const newId = Date.now(); // Use a unique ID for new elements
+            createNewLink(iconClass, linkInputValue, newId);
+            document.getElementById('newLinkInput').value = '';
+            iconSelect.selectedIndex = 0;
+        }
+
+        function createNewLink(iconClass, url, id) {
+            const createElement = (type, classes, value = '') => {
+                const el = document.createElement(type);
+                el.className = classes;
+                el.value = value;
+                return el;
             };
 
-            linkInputItem.append(inputElement, deleteButton);
+            const linkContainer = document.getElementById('linkContainer');
+            const linkWrapper = createElement('div', 'social-button-wrapper', '');
+            linkWrapper.setAttribute('data-id', id);
+
+            const linkButton = createElement('a', `flex items-center social-button ${iconClass} text-xl`, '');
+            linkButton.href = url;
+
+            linkWrapper.appendChild(linkButton);
+            linkContainer.appendChild(linkWrapper);
+
+            const linkInputs = document.getElementById('linkInputs');
+            const linkInputItem = createElement('div', 'flex items-center space-x-2 link-input-item');
+            linkInputItem.setAttribute('data-id', id);
+
+            const inputElement = createElement('input', 'flex-grow p-2 border border-gray-300 rounded-lg', url);
+            inputElement.setAttribute('data-icon', iconClass);
+
+            const iconDropdown = createElement('select', 'flex-grow p-2 border border-gray-300 rounded-lg icon-select');
+            iconDropdown.innerHTML = document.getElementById('newIconSelect').innerHTML;
+            iconDropdown.value = iconClass;
+
+            const updateButton = createElement('button', 'p-2 bg-blue-500 text-white rounded-lg', 'Update');
+            updateButton.onclick = () => updateLink(id);
+
+            const deleteButton = createElement('button', 'p-2 bg-red-500 text-white rounded-lg', 'X');
+            deleteButton.onclick = () => removeLink(deleteButton, id);
+
+            linkInputItem.append(inputElement, iconDropdown, updateButton, deleteButton);
             linkInputs.appendChild(linkInputItem);
+        }
 
-            linkContainer.appendChild(linkButton);
+        function removeLink(button, id) {
+            const linkInputItem = document.querySelector(`#linkInputs .link-input-item[data-id="${id}"]`);
+            if (linkInputItem) linkInputItem.remove();
 
-            document.getElementById('linkInput').value = '';
+            const linkWrapper = document.querySelector(`#linkContainer .social-button-wrapper[data-id="${id}"]`);
+            if (linkWrapper) linkWrapper.remove();
+
+            console.log(`Link with ID ${id} removed.`);
+        }
+
+        function updateLink(id) {
+            const linkInputItem = document.querySelector(`#linkInputs .link-input-item[data-id="${id}"]`);
+            if (!linkInputItem) return;
+
+            const inputElement = linkInputItem.querySelector('input');
+            const iconDropdown = linkInputItem.querySelector('.icon-select');
+            const newUrl = inputElement.value.trim();
+            const newIconClass = iconDropdown.value;
+
+            if (!newUrl || !newIconClass) {
+                alert('Both URL and icon must be set.');
+                return;
+            }
+
+            const linkWrapper = document.querySelector(`#linkContainer .social-button-wrapper[data-id="${id}"]`);
+            if (linkWrapper) {
+                const linkButton = linkWrapper.querySelector('a');
+                linkButton.href = newUrl;
+                linkButton.className = `flex items-center social-button ${newIconClass} text-xl`;
+            }
+
+            console.log(`Link with ID ${id} updated. URL: ${newUrl}, Icon: ${newIconClass}`);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            @foreach ($linkButtons as $index => $linkButton)
+                createExistingLinkButton('{{ $linkButton->text }}', '{{ $linkButton->url }}',
+                    '{{ $index }}');
+            @endforeach
+        });
+
+        function createExistingLinkButton(text, url, id) {
+            const linkContainer = document.getElementById('buttonContainer');
+            const buttonWrapper = document.createElement('div');
+            buttonWrapper.className = 'link-button-wrapper';
+            buttonWrapper.setAttribute('data-id', id);
+
+            const linkButton = document.createElement('a');
+            linkButton.className = 'flex-grow block p-2 text-center border border-gray-300 rounded shadow-xl link-button';
+            linkButton.href = url;
+            linkButton.textContent = text;
+
+            buttonWrapper.appendChild(linkButton);
+            linkContainer.appendChild(buttonWrapper);
         }
 
         function addLinkButton() {
-            const [textInput, urlInput] = ['textInput', 'urlInput'].map(id => document.getElementById(id).value.trim());
+            const textInput = document.getElementById('textInput').value.trim();
+            const urlInput = document.getElementById('urlInput').value.trim();
             if (!textInput || !urlInput) return;
 
-            const createElement = (type, classes, value = '') => {
-                const el = document.createElement(type);
-                el.className = classes;
-                el.value = value;
-                return el;
-            };
+            const newId = Date.now();
+            createNewLinkButton(textInput, urlInput, newId);
 
+            document.getElementById('textInput').value = '';
+            document.getElementById('urlInput').value = '';
+        }
+
+        function createNewLinkButton(text, url, id) {
             const linkContainer = document.getElementById('linkContainers');
             const buttonContainer = document.getElementById('buttonContainer');
-            const linkWrapper = createElement('div', 'flex items-center w-full space-x-2');
-            const buttonWrapper = createElement('div', 'flex space-x-2 items-center w-full');
-            const newLink = createElement('input', 'flex-grow p-2 border border-gray-300 rounded-lg btnEx', urlInput);
-            const newBtnLink = createElement('input', 'flex-grow p-2 border border-gray-300 rounded-lg btnEx', textInput);
-            const newButton = createElement('a',
-                'block flex-grow p-2 text-center rounded shadow-xl btnEx border border-gray-300 link-button', textInput);
 
-            newLink.oninput = () => newButton.href = newLink.value;
-            newBtnLink.oninput = () => newButton.textContent = newBtnLink.value;
+            const linkInputItem = document.createElement('div');
+            linkInputItem.className = 'flex items-center space-x-2 link-input-item';
+            linkInputItem.setAttribute('data-id', id);
 
-            const removeLinkButton = createElement('button',
-                'px-4 py-2 bg-red-500 text-white border border-red-500 rounded-lg', 'X');
-            removeLinkButton.onclick = () => {
-                linkContainer.removeChild(linkWrapper);
-                buttonContainer.removeChild(buttonWrapper);
-            };
+            const textElement = document.createElement('input');
+            textElement.className = 'flex-grow p-2 border border-gray-300 rounded-lg';
+            textElement.value = text;
+            textElement.dataset.url = url;
 
-            linkWrapper.append(newBtnLink, newLink, removeLinkButton);
-            linkContainer.appendChild(linkWrapper);
+            const urlElement = document.createElement('input');
+            urlElement.className = 'flex-grow p-2 border border-gray-300 rounded-lg';
+            urlElement.value = url;
 
-            newButton.href = urlInput;
-            newButton.textContent = textInput;
+            const updateButton = document.createElement('button');
+            updateButton.className = 'px-4 py-2 text-white bg-blue-500 rounded-lg';
+            updateButton.textContent = 'Update';
+            updateButton.onclick = () => updateLinkButton(id);
+
+            const deleteButton = document.createElement('button');
+            deleteButton.className = 'px-4 py-2 text-white bg-red-500 rounded-lg';
+            deleteButton.textContent = 'X';
+            deleteButton.onclick = () => removeLinkButton(deleteButton, id);
+
+            linkInputItem.append(textElement, urlElement, updateButton, deleteButton);
+            linkContainer.appendChild(linkInputItem);
+
+            const buttonWrapper = document.createElement('div');
+            buttonWrapper.className = 'link-button-wrapper';
+            buttonWrapper.setAttribute('data-id', id);
+
+            const newButton = document.createElement('a');
+            newButton.className = 'flex-grow block p-2 text-center border border-gray-300 rounded shadow-xl link-button';
+            newButton.href = url;
+            newButton.textContent = text;
+
             buttonWrapper.appendChild(newButton);
             buttonContainer.appendChild(buttonWrapper);
+        }
 
-            ['textInput', 'urlInput'].forEach(id => document.getElementById(id).value = '');
+        function updateLinkButton(id) {
+            const linkInputItem = document.querySelector(`#linkContainers .link-input-item[data-id="${id}"]`);
+            if (!linkInputItem) return;
+
+            const textElement = linkInputItem.querySelector('input:nth-child(1)');
+            const urlElement = linkInputItem.querySelector('input:nth-child(2)');
+            const newText = textElement.value.trim();
+            const newUrl = urlElement.value.trim();
+
+            if (!newText || !newUrl) {
+                alert('Text and URL fields cannot be empty.');
+                return;
+            }
+
+            const buttonWrapper = document.querySelector(`#buttonContainer .link-button-wrapper[data-id="${id}"]`);
+            if (buttonWrapper) {
+                const linkButton = buttonWrapper.querySelector('a');
+                linkButton.href = newUrl;
+                linkButton.textContent = newText;
+            }
+        }
+
+        function removeLinkButton(button, id) {
+            const linkInputItem = document.querySelector(`#linkContainers .link-input-item[data-id="${id}"]`);
+            if (linkInputItem) linkInputItem.remove();
+
+            const buttonWrapper = document.querySelector(`#buttonContainer .link-button-wrapper[data-id="${id}"]`);
+            if (buttonWrapper) buttonWrapper.remove();
         }
     </script>
 </body>

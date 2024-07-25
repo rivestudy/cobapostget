@@ -8,9 +8,11 @@ class CustomizationBox extends Component
 {
     public $socialButtons;
     public $linkButtons;
+    public $customizations;
 
-    public function __construct($socialButtons, $linkButtons)
+    public function __construct($customizations, $socialButtons, $linkButtons)
     {
+        $this->customizations = $customizations;
         $this->socialButtons = $socialButtons;
         $this->linkButtons = $linkButtons;
     }
