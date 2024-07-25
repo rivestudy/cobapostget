@@ -12,100 +12,98 @@
     <title>Kustomisasi</title>
 </head>
 
-<body class="flex w-full">
-    <div class="w-2/3">
-        <x-customization-box :customizations="$customization" :social-buttons="$socialButtons" :link-buttons="$linkButtons"></x-customization-box>
+<body class="w-full xl:flex">
+    {{-- Area Kustomisasi --}}
+    <div class="w-full xl:w-2/3">
+        <x-customization-box :customizations="$customization" :social-buttons="$socialButtons" :link-buttons="$linkButtons">
+            {{-- Hidden POST Form  --}}
+            <div class="justify-end w-full">
+                <form method="POST" class="flex justify-end space-y-4" id="previewForm"
+                    action="{{ route('customization.update') }}" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                    {{-- Tampilan --}}
+                    <input type="text" name="display_preview_class" class="hidden" id="displayPreviewInput"
+                        value="{{ $customization->display_preview_class }}">
+                    {{-- Background --}}
+                    <input type="text" name="display_preview_bg" class="hidden" id="displayPreviewBg"
+                        value="{{ $customization->display_preview_bg }}">
+                    {{-- Slug / Custom Link --}}
+                    <input type="text" name="slug_input" id="slug_input" class="hidden"
+                        value="{{ $customization->slug }}">
+                    {{-- Title --}}
+                    <input type="text" name="title_input" id="titlePreviewInput" class="hidden"
+                        value="{{ $customization->title }}">
+                    {{-- About --}}
+                    <input type="text" name="about_input" id="aboutPreviewInput" class="hidden"
+                        value="{{ $customization->about }}">
+                    {{-- Banner --}}
+                    <input type="file" name="banner" id="bannerFileInput" class="hidden" accept="image/*"
+                        oninput="previewImage('bannerFileInput', 'bannerPreview')">
+                    {{-- PP --}}
+                    <input type="file" name="profile" id="profileFileInput" class="hidden" accept="image/*"
+                        oninput="previewImage('profileFileInput', 'profilePreview')">
+                    {{-- Link Sosmed --}}
+                    <div class="hidden" id="socialButtonsContainer"></div>
+                    {{-- Link Tombol --}}
+                    <div class="hidden" id="linkButtonsContainer"></div>
+                    <button class="p-2 px-4 font-bold text-white bg-green-500 rounded-lg" type="submit"
+                        onclick="setProps()">Save Previews</button>
+                </form>
+            </div>
+        </x-customization-box>
     </div>
-    <div class="w-1/3 text-xl font-bold bg-gray-300">
-        <div class="">
-            <h1>Edit Customization</h1>
-            <form method="POST" class="space-y-4" id="previewForm" action="{{ route('customization.update') }}"
-                enctype="multipart/form-data">
-                @csrf
-                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-
-                <label for="displayPreviewInput">Input display class</label>
-                <input type="text" name="display_preview_class" id="displayPreviewInput"
-                    value="{{ $customization->display_preview_class }}">
-                <br>
-
-                <label for="displayPreviewInput">Input display Bg</label>
-                <input type="text" name="display_preview_bg" id="displayPreviewBg"
-                    value="{{ $customization->display_preview_bg }}">
-                <br>
-                <label for="slug_input">slug</label>
-                <input type="text" name="slug_input" id="slug_input" value="{{ $customization->slug }}">
-                <br>
-                <label for="titlePreviewInput">Input title text</label>
-                <input type="text" name="title_input" id="titlePreviewInput" value="{{ $customization->title }}">
-                <br>
-
-                <label for="aboutPreviewInput">Input about text</label>
-                <input type="text" name="about_input" id="aboutPreviewInput" value="{{ $customization->about }}">
-                <br>
-
-                <input type="file" name="banner" id="bannerFileInput" class="" accept="image/*"
-                    oninput="previewImage('bannerFileInput', 'bannerPreview')">
-                <input type="file" name="profile" id="profileFileInput" class="" accept="image/*"
-                    oninput="previewImage('profileFileInput', 'profilePreview')">
-
-                <div id="socialButtonsContainer">
+    {{-- Area Preview --}}
+    <div class="sticky top-0 w-full p-4 text-xl font-bold bg-gray-300 xl:w-1/3" style="max-height:100vh">
+        <div class="mx-auto overflow-hidden rounded-3xl border-8 border-black bg-black w-[420px] xl:w-[420px] h-[900px] mt-6 xl:mt-0">
+            {{-- Header Notif Bar --}}
+            <h1 class="sticky top-0 w-full px-3 text-right text-white bg-gray-400 rounded-t-2xl">5G ᯤ | 50%</h1>
+            {{-- Container Utama --}}
+            <div class="{{ $customization->display_preview_class }}"
+                style="{{ $customization->display_preview_bg }} {{ $customization->display_preview_fc }}"
+                id="displayPreview">
+                <div class="bg-gray-200">
+                    @if ($customization->banner)
+                        <img class="object-cover h-[190px] w-full"
+                            src="{{ asset('storage/' . $customization->banner) }}" id="bannerPreview" alt="Banner">
+                    @endif
                 </div>
-                <div id="linkButtonsContainer">
-                </div>
-                <button class="p-2 bg-white" type="submit" onclick="setProps()">Save Previews</button>
-                <div
-                    class="mx-auto overflow-hidden rounded-3xl border-8 border-black bg-black w-[420px] xl:w-[420px] h-[900px] mt-6 xl:mt-0">
-                    <h1 class="w-full px-3 text-right text-white bg-gray-400 rounded-t-2xl">5G ᯤ | 50%</h1>
-                    <div class="bg-gray-200">
-                        @if ($customization->banner)
-                            <img class="object-cover h-[190px] w-full"
-                                src="{{ asset('storage/' . $customization->banner) }}" id="bannerPreview"
-                                alt="Banner">
+                <div>
+                    <div class="w-24 mx-auto bg-gray-600 rounded-full">
+                        @if ($customization->profile)
+                            <img class="object-cover w-24 h-24 -mt-12 rounded-full"
+                                src="{{ asset('storage/' . $customization->profile) }}" id="profilePreview"
+                                alt="Profile">
                         @endif
                     </div>
-                    <div class="{{ $customization->display_preview_class }}"
-                        style="{{ $customization->display_preview_bg }} {{ $customization->display_preview_fc }}"
-                        id="displayPreview">
-                        <div class="w-24 mx-auto bg-gray-600 rounded-full">
-                            @if ($customization->profile)
-                                <img class="object-cover w-24 h-24 -mt-12 rounded-full"
-                                    src="{{ asset('storage/' . $customization->profile) }}" id="profilePreview"
-                                    alt="Profile">
-                            @endif
-                        </div>
-                        <h1 class="mb-2 text-xl font-bold text-center break-words whitespace-normal Title"
-                            id="titlePreview">
-                            {{ $customization->title }}</h1>
-                        <p class="mb-4 text-center break-words whitespace-normal About" id="aboutPreview">
-                            {{ $customization->about }}</p>
-                        <div id="linkContainer" class="flex justify-center mx-auto space-x-2 previewButtons">
-                            @foreach ($socialButtons as $index => $socialButton)
-                                <div class="social-button-wrapper" data-id="{{ $index }}">
-                                    <a class="{{ $socialButton->icon }}" href="{{ $socialButton->url }}"></a>
-                                </div>
-                            @endforeach
-                        </div>
-
-                        <div id="buttonContainer" class="justify-center w-full mt-4 space-y-2">
-                            @foreach ($linkButtons as $index => $linkButton)
-                                <div class="link-button-wrapper" data-id="{{ $index }}">
-                                    <a class="flex-grow block p-2 text-center border border-gray-300 rounded shadow-xl link-button"
-                                        href="{{ $linkButton->url }}">{{ $linkButton->text }}</a>
-                                </div>
-                            @endforeach
-                        </div>
-
+                    <h1 class="mb-2 text-xl font-bold text-center break-words whitespace-normal Title"
+                        id="titlePreview">{{ $customization->title }}</h1>
+                    <p class="mb-4 text-center break-words whitespace-normal About" id="aboutPreview">
+                        {{ $customization->about }}</p>
+                    <div id="linkContainer"
+                        class="flex flex-wrap justify-center p-2 mx-auto space-x-2 previewButtons">
+                        @foreach ($socialButtons as $index => $socialButton)
+                            <div class="mb-2 social-button-wrapper" data-id="{{ $index }}">
+                                <a class="{{ $socialButton->icon }}" href="{{ $socialButton->url }}"></a>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div id="buttonContainer" class="justify-center w-full px-2 mt-4 space-y-2">
+                        @foreach ($linkButtons as $index => $linkButton)
+                            <div class="link-button-wrapper" data-id="{{ $index }}">
+                                <a class="flex-grow block p-2 text-center border border-gray-300 rounded shadow-xl link-button"
+                                    href="{{ $linkButton->url }}">{{ $linkButton->text }}</a>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
-
-        <button class="p-2 bg-white" onclick="setProps()">test</button>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <script>
+        // Kustomisasi Font & BG
         const dataset = {
             font: '',
             background: '',
@@ -139,25 +137,23 @@
         }
 
         function updateDisplay() {
-
-            //get from database
+            // Ambil dri Database
             const databg = @json($customization->display_preview_bg);
             const datafont = @json($customization->display_preview_font);
             const datafc = @json($customization->display_preview_fc);
             const displayElement = document.querySelector('.displayPreview');
 
-
             if (dataset.background === '') {
                 displayElement.className =
-                    `displayPreview px-3 pt-2 my-auto h-full max-h-[670px] mb-0 w-full flex-grow-1 rounded-b-2xl font-${dataset.font}`;
+                    `no-scrollbar overflow-y-auto displayPreview  my-auto h-full mb-0 w-full flex-grow-1 rounded-b-2xl font-${dataset.font}`;
                 displayElement.style.backgroundImage = databg;
             } else if (dataset.font === '') {
                 displayElement.className =
-                    `displayPreview px-3 pt-2 my-auto h-full max-h-[670px] mb-0 w-full ${datafont} flex-grow-1 rounded-b-2xl`;
+                    `no-scrollbar overflow-y-auto displayPreview my-auto h-full mb-0 w-full ${datafont} flex-grow-1 rounded-b-2xl`;
                 displayElement.style.backgroundImage = dataset.background;
             } else {
                 displayElement.className =
-                    `displayPreview px-3 pt-2 my-auto h-full max-h-[670px] mb-0 w-full flex-grow-1 rounded-b-2xl font-${dataset.font}`;
+                    `no-scrollbar overflow-y-auto displayPreview my-auto h-full mb-0 w-full flex-grow-1 rounded-b-2xl font-${dataset.font}`;
                 displayElement.style.backgroundImage = dataset.background;
             }
 
@@ -165,29 +161,27 @@
                 displayElement.style.color = dataset.fontcolor;
             }
         }
-
         function changeFontWhite() {
             changeFontColor('white');
         }
-
         function changeFontBlack() {
             changeFontColor('black');
         }
 
+        //Popup Custom Warna
         function openWarna() {
             document.getElementById('modalWarna').classList.remove('hidden');
         }
-
         function closeWarna() {
             document.getElementById('modalWarna').classList.add('hidden');
         }
-
         document.getElementById('font-c').addEventListener('input', function() {
             const fontColor = this.value;
             document.getElementById('font-color-hex').textContent = fontColor;
             changeFontColor(fontColor);
         });
 
+        //Input Gambar Banner & PP
         $(document).ready(function() {
             $("#bannerFileInput, #profileFileInput").change(function() {
                 var file = this.files[0];
@@ -201,6 +195,7 @@
             });
         });
 
+        //Kirim data kustomisasi ke hidden Form
         function setProps() {
             const slugInput = document.getElementById('slug_input');
             const displayPreviewInput = document.getElementById('displayPreviewInput');
@@ -209,12 +204,6 @@
             const aboutPreviewInput = document.getElementById('aboutPreviewInput');
             const socialButtonsContainer = document.getElementById('socialButtonsContainer');
             const linkButtonsContainer = document.getElementById('linkButtonsContainer');
-
-            if (!displayPreviewInput || !displayPreview || !titlePreviewInput || !aboutPreviewInput ||
-                !socialButtonsContainer || !linkButtonsContainer) {
-                console.error('One or more elements not found.');
-                return false;
-            }
 
             displayPreviewInput.value = displayPreview.className;
             document.getElementById('displayPreviewBg').value =
@@ -227,8 +216,7 @@
             socialButtonsContainer.innerHTML = '';
             linkButtonsContainer.innerHTML = '';
 
-            console.log('Cleared containers');
-
+            //Ambil data Tombol
             const socialButtons = document.querySelectorAll('.social-button');
             socialButtons.forEach((button, index) => {
                 console.log('Adding social button input', index);
@@ -244,7 +232,6 @@
                 inputIcon.value = button.className;
                 socialButtonsContainer.appendChild(inputIcon);
             });
-
             const linkButtons = document.querySelectorAll('.link-button');
             linkButtons.forEach((button, index) => {
                 console.log('Adding link button input', index);
@@ -263,19 +250,41 @@
 
             return true;
         }
+        // Preview image
         function previewImage(inputId, imgId) {
             const input = document.getElementById(inputId);
             const img = document.getElementById(imgId);
             const reader = new FileReader();
 
-            reader.onload = function(e) {
-                img.src = e.target.result;
-            };
-
+            // Cek ukuran
             if (input.files && input.files[0]) {
-                reader.readAsDataURL(input.files[0]);
+                const file = input.files[0];
+                const fileSize = file.size; // in bytes
+                const maxSize = 2 * 1024 * 1024; // 2 MB
+
+                if (fileSize > maxSize) {
+                    alert('File size exceeds 2 MB. Please choose a smaller file.');
+                    input.value = '';
+                    return;
+                }
+                reader.onload = function(e) {
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
             }
         }
+
+        // Load data dri database
+        window.addEventListener('DOMContentLoaded', function() {
+            const profileImg = document.getElementById('profilePreview');
+            const bannerImg = document.getElementById('bannerPreview');
+            @if ($customization->profile)
+                profileImg.src = "{{ asset('storage/' . $customization->profile) }}";
+            @endif
+            @if ($customization->banner)
+                bannerImg.src = "{{ asset('storage/' . $customization->banner) }}";
+            @endif
+        });
 
         document.getElementById('profile-icon').addEventListener('click', function(event) {
             event.stopPropagation();
@@ -299,23 +308,23 @@
             }
         });
 
+        // Update teks ketika input
         function updateTitle() {
             const titletext = document.getElementById('titleInput').value;
             document.querySelector(`.Title`).innerText = titletext;
         }
-
         function updateAbout() {
             const abouttext = document.getElementById('aboutInput').value;
             document.querySelector(`.About`).innerText = abouttext;
         }
 
+        //Load tombol sosmed
         document.addEventListener('DOMContentLoaded', function() {
             @foreach ($socialButtons as $index => $socialButton)
                 createExistingLink('{{ $socialButton->icon }}', '{{ $socialButton->url }}',
                     '{{ $index }}');
             @endforeach
         });
-
         function createExistingLink(iconClass, url, id) {
             const createElement = (type, classes, value = '') => {
                 const el = document.createElement(type);
@@ -334,7 +343,6 @@
             linkWrapper.appendChild(linkButton);
             linkContainer.appendChild(linkWrapper);
         }
-
         function generateLinkInput() {
             const linkInputValue = document.getElementById('newLinkInput').value.trim();
             const iconSelect = document.getElementById('newIconSelect');
@@ -348,7 +356,6 @@
             document.getElementById('newLinkInput').value = '';
             iconSelect.selectedIndex = 0;
         }
-
         function createNewLink(iconClass, url, id) {
             const createElement = (type, classes, value = '') => {
                 const el = document.createElement(type);
@@ -368,26 +375,32 @@
             linkContainer.appendChild(linkWrapper);
 
             const linkInputs = document.getElementById('linkInputs');
-            const linkInputItem = createElement('div', 'flex items-center space-x-2 link-input-item');
+            const linkInputItem = createElement('div',
+                'grid grid-cols-6 mb-2 space-x-2 sm:grid-cols-10 lg:grid-cols-cb link-input-item');
             linkInputItem.setAttribute('data-id', id);
 
-            const inputElement = createElement('input', 'flex-grow p-2 border border-gray-300 rounded-lg', url);
+            const inputElement = createElement('input',
+                'flex-grow h-full col-span-2 p-2 bg-transparent border border-gray-300 rounded-lg sm:col-span-5 lg:col-span-10',
+                url);
             inputElement.setAttribute('data-icon', iconClass);
 
-            const iconDropdown = createElement('select', 'flex-grow p-2 border border-gray-300 rounded-lg icon-select');
+            const iconDropdown = createElement('select',
+                'flex-grow h-full col-span-2 p-2 bg-transparent border border-gray-300 rounded-lg sm:col-span-3 lg:col-span-4 icon-select'
+            );
             iconDropdown.innerHTML = document.getElementById('newIconSelect').innerHTML;
             iconDropdown.value = iconClass;
 
-            const updateButton = createElement('button', 'p-2 bg-blue-500 text-white rounded-lg', 'Update');
+            const updateButton = createElement('button', '', '');
+            updateButton.innerHTML = '<i class="block py-2 text-white bg-blue-500 rounded-lg bi bi-floppy"></i>'
             updateButton.onclick = () => updateLink(id);
 
-            const deleteButton = createElement('button', 'p-2 bg-red-500 text-white rounded-lg', 'X');
+            const deleteButton = createElement('button', '', '');
+            deleteButton.innerHTML = '<i class="block py-2 text-white bg-red-500 rounded-lg bi bi-trash"></i>'
             deleteButton.onclick = () => removeLink(deleteButton, id);
 
             linkInputItem.append(inputElement, iconDropdown, updateButton, deleteButton);
             linkInputs.appendChild(linkInputItem);
         }
-
         function removeLink(button, id) {
             const linkInputItem = document.querySelector(`#linkInputs .link-input-item[data-id="${id}"]`);
             if (linkInputItem) linkInputItem.remove();
@@ -397,7 +410,6 @@
 
             console.log(`Link with ID ${id} removed.`);
         }
-
         function updateLink(id) {
             const linkInputItem = document.querySelector(`#linkInputs .link-input-item[data-id="${id}"]`);
             if (!linkInputItem) return;
@@ -422,13 +434,13 @@
             console.log(`Link with ID ${id} updated. URL: ${newUrl}, Icon: ${newIconClass}`);
         }
 
+        //Load tombol link
         document.addEventListener('DOMContentLoaded', function() {
             @foreach ($linkButtons as $index => $linkButton)
                 createExistingLinkButton('{{ $linkButton->text }}', '{{ $linkButton->url }}',
                     '{{ $index }}');
             @endforeach
         });
-
         function createExistingLinkButton(text, url, id) {
             const linkContainer = document.getElementById('buttonContainer');
             const buttonWrapper = document.createElement('div');
@@ -443,7 +455,6 @@
             buttonWrapper.appendChild(linkButton);
             linkContainer.appendChild(buttonWrapper);
         }
-
         function addLinkButton() {
             const textInput = document.getElementById('textInput').value.trim();
             const urlInput = document.getElementById('urlInput').value.trim();
@@ -455,32 +466,33 @@
             document.getElementById('textInput').value = '';
             document.getElementById('urlInput').value = '';
         }
-
         function createNewLinkButton(text, url, id) {
             const linkContainer = document.getElementById('linkContainers');
             const buttonContainer = document.getElementById('buttonContainer');
 
             const linkInputItem = document.createElement('div');
-            linkInputItem.className = 'flex items-center space-x-2 link-input-item';
+            linkInputItem.className = 'grid grid-cols-6 mb-2 space-x-2 sm:grid-cols-10 lg:grid-cols-cb link-input-item';
             linkInputItem.setAttribute('data-id', id);
 
             const textElement = document.createElement('input');
-            textElement.className = 'flex-grow p-2 border border-gray-300 rounded-lg';
+            textElement.className =
+                'flex-grow h-full col-span-2 p-2 bg-transparent border border-gray-300 rounded-lg sm:col-span-4 lg:col-span-7';
             textElement.value = text;
             textElement.dataset.url = url;
 
             const urlElement = document.createElement('input');
-            urlElement.className = 'flex-grow p-2 border border-gray-300 rounded-lg';
+            urlElement.className =
+                'flex-grow h-full col-span-2 p-2 bg-transparent border border-gray-300 rounded-lg sm:col-span-4 lg:col-span-7';
             urlElement.value = url;
 
             const updateButton = document.createElement('button');
-            updateButton.className = 'px-4 py-2 text-white bg-blue-500 rounded-lg';
-            updateButton.textContent = 'Update';
+            updateButton.className = 'items-center justify-center flex-grow col-span-1';
+            updateButton.innerHTML = '<i class="block py-2 text-white bg-blue-500 rounded-lg bi bi-floppy"></i>';
             updateButton.onclick = () => updateLinkButton(id);
 
             const deleteButton = document.createElement('button');
-            deleteButton.className = 'px-4 py-2 text-white bg-red-500 rounded-lg';
-            deleteButton.textContent = 'X';
+            deleteButton.className = 'items-center justify-center flex-grow col-span-1';
+            deleteButton.innerHTML = '<i class="block py-2 text-white bg-red-500 rounded-lg bi bi-trash"></i>';
             deleteButton.onclick = () => removeLinkButton(deleteButton, id);
 
             linkInputItem.append(textElement, urlElement, updateButton, deleteButton);
@@ -498,7 +510,6 @@
             buttonWrapper.appendChild(newButton);
             buttonContainer.appendChild(buttonWrapper);
         }
-
         function updateLinkButton(id) {
             const linkInputItem = document.querySelector(`#linkContainers .link-input-item[data-id="${id}"]`);
             if (!linkInputItem) return;
@@ -520,7 +531,6 @@
                 linkButton.textContent = newText;
             }
         }
-
         function removeLinkButton(button, id) {
             const linkInputItem = document.querySelector(`#linkContainers .link-input-item[data-id="${id}"]`);
             if (linkInputItem) linkInputItem.remove();

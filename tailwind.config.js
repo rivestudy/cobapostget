@@ -6,7 +6,11 @@ export default {
     "./resources/**/*.vue",
   ],
   theme: {
-    extend: {},
+    extend: {
+      gridTemplateColumns: {
+        'cb': 'repeat(16, minmax(0, 1fr))', // 4 columns
+      },
+    },
   },
   plugins: [],
 }
