@@ -3,28 +3,22 @@
         width: 32px;
         height: 32px;
     }
-
     #filbanner {
         display: none;
     }
-
     #filprofile {
         display: none;
     }
-
     .no-scrollbar::-webkit-scrollbar {
         display: none;
     }
-
-    /* Hide scrollbar for IE, Edge and Firefox */
     .no-scrollbar {
         -ms-overflow-style: none;
-        /* IE and Edge */
-        scrollbar-width: none;
-        /* Firefox */
+        scrollbar-width: none;  
     }
 </style>
 <div class="flex-grow max-w-full p-8 shadow-2xl customizations">
+    {{-- Link Profil --}}
     <div class="flex-grow mb-3">
         <h3 class="font-bold">Custom Link</h3>
         <div class="p-3 bg-white rounded-lg shadow-lg">
@@ -35,6 +29,7 @@
             </div>
         </div>
     </div>
+    {{-- Gambar --}}
     <div class="flex space-x-6">
         <div class="w-1/2">
             <h3 class="font-bold">Banner</h3>
@@ -67,6 +62,7 @@
             </div>
         </div>
     </div>
+    {{-- Judul --}}
     <div class="flex-grow mb-3">
         <h3 class="font-bold">Title</h3>
         <div class="p-3 bg-white rounded-lg shadow-lg">
@@ -76,6 +72,7 @@
             </div>
         </div>
     </div>
+    {{-- Tentang --}}
     <div class="flex-grow mb-3">
         <h3 class="font-bold">About</h3>
         <div class="p-3 bg-white rounded-lg shadow-lg">
@@ -85,6 +82,7 @@
             </div>
         </div>
     </div>
+    {{-- Link Medsos --}}
     <div class="flex-grow mb-3">
         <h3 class="font-bold">Social Media</h3>
         <div class="p-3 bg-white rounded-lg shadow-lg">
@@ -115,35 +113,39 @@
                     <div class="grid grid-cols-6 mb-2 space-x-2 sm:grid-cols-10 lg:grid-cols-cb link-input-item"
                         data-id="{{ $index }}">
                         <input type="text"
-                            class="flex-grow h-full col-span-2 p-2 bg-transparent border border-gray-300 rounded-lg sm:col-span-5 lg:col-span-10"
-                            value="{{ $socialButton->url }}" data-icon="{{ $socialButton->icon }}">
-                        <select
-                            class="flex-grow h-full col-span-2 p-2 bg-transparent border border-gray-300 rounded-lg sm:col-span-3 lg:col-span-4 icon-select">
-                            <option value="bi-envelope-fill"
-                                {{ $socialButton->icon === 'bi-envelope-fill' ? 'selected' : '' }}>Envelope</option>
-                            <option value="bi-whatsapp" {{ $socialButton->icon === 'bi-whatsapp' ? 'selected' : '' }}>
-                                WhatsApp</option>
-                            <option value="bi-linkedin" {{ $socialButton->icon === 'bi-linkedin' ? 'selected' : '' }}>
-                                LinkedIn</option>
-                            <option value="bi-instagram" {{ $socialButton->icon === 'bi-instagram' ? 'selected' : '' }}>
+                            class="flex-grow h-full col-span-3 p-2 bg-transparent border border-gray-300 rounded-lg sm:col-span-5 lg:col-span-10"
+                            value="{{ $socialButton->url }}" data-icon="{{ $socialButton->icon }}" oninput="updateLink({{ $index }})">
+                        <?php
+                        // Extract data icon
+                        $iconClass = '';
+                        if (preg_match('/bi-[\w-]+/', $socialButton->icon, $matches)) {
+                            $iconClass = $matches[0];
+                        }
+                        ?>
+                        <select id="iconDropdown"
+                            class="flex-grow h-full col-span-2 p-2 bg-transparent border border-gray-300 rounded-lg sm:col-span-4 lg:col-span-5 icon-select"
+                            onchange="updateLink({{ $index }})">
+                            <option value="bi-envelope-fill" {{ $iconClass === 'bi-envelope-fill' ? 'selected' : '' }}>
+                                Email</option>
+                            <option value="bi-whatsapp" {{ $iconClass === 'bi-whatsapp' ? 'selected' : '' }}>WhatsApp
+                            </option>
+                            <option value="bi-linkedin" {{ $iconClass === 'bi-linkedin' ? 'selected' : '' }}>LinkedIn
+                            </option>
+                            <option value="bi-instagram" {{ $iconClass === 'bi-instagram' ? 'selected' : '' }}>
                                 Instagram</option>
-                            <option value="bi-twitter-x"
-                                {{ $socialButton->icon === 'bi-twitter-x' ? 'selected' : '' }}>
-                                Twitter</option>
-                            <option value="bi-youtube" {{ $socialButton->icon === 'bi-youtube' ? 'selected' : '' }}>
-                                YouTube</option>
-                            <option value="bi-telegram" {{ $socialButton->icon === 'bi-telegram' ? 'selected' : '' }}>
-                                Telegram</option>
-                            <option value="bi-facebook" {{ $socialButton->icon === 'bi-facebook' ? 'selected' : '' }}>
-                                Facebook</option>
-                            <option value="bi-discord" {{ $socialButton->icon === 'bi-discord' ? 'selected' : '' }}>
-                                Discord</option>
-                            <option value="bi-link-45deg"
-                                {{ $socialButton->icon === 'bi-link-45deg' ? 'selected' : '' }}>Link</option>
+                            <option value="bi-twitter-x" {{ $iconClass === 'bi-twitter-x' ? 'selected' : '' }}>Twitter
+                            </option>
+                            <option value="bi-youtube" {{ $iconClass === 'bi-youtube' ? 'selected' : '' }}>YouTube
+                            </option>
+                            <option value="bi-telegram" {{ $iconClass === 'bi-telegram' ? 'selected' : '' }}>Telegram
+                            </option>
+                            <option value="bi-facebook" {{ $iconClass === 'bi-facebook' ? 'selected' : '' }}>Facebook
+                            </option>
+                            <option value="bi-discord" {{ $iconClass === 'bi-discord' ? 'selected' : '' }}>Discord
+                            </option>
+                            <option value="bi-link-45deg" {{ $iconClass === 'bi-link-45deg' ? 'selected' : '' }}>Link
+                            </option>
                         </select>
-                        <button onclick="updateLink({{ $index }})">
-                            <i class="block py-2 text-white bg-blue-500 rounded-lg bi bi-floppy"></i>
-                        </button>
                         <button onclick="removeLink(this, {{ $index }})">
                             <i class="block py-2 text-white bg-red-500 rounded-lg bi bi-trash"></i>
                         </button>
@@ -152,6 +154,7 @@
             </div>
         </div>
     </div>
+    {{-- Tombol Link  --}}
     <div class="flex-grow mb-3">
         <h3 class="font-bold">Button Links</h3>
         <div class="flex-1 p-3 bg-white rounded-lg shadow-lg">
@@ -172,14 +175,10 @@
                         data-id="{{ $index }}">
                         <input type="text"
                             class="flex-grow col-span-2 p-2 border border-gray-300 rounded-lg sm:col-span-4 lg:col-span-7"
-                            value="{{ $linkButton->text }}" data-url="{{ $linkButton->url }}">
+                            value="{{ $linkButton->text }}" data-url="{{ $linkButton->url }}" oninput="updateLinkButton({{ $index }})">
                         <input type="text"
-                            class="flex-grow col-span-2 p-2 border border-gray-300 rounded-lg sm:col-span-4 lg:col-span-7"
-                            value="{{ $linkButton->url }}">
-                        <button class="items-center justify-center flex-grow col-span-1 "
-                            onclick="updateLinkButton({{ $index }})">
-                            <i class="block py-2 text-white bg-blue-500 rounded-lg bi bi-floppy"></i>
-                        </button>
+                            class="flex-grow col-span-3 p-2 border border-gray-300 rounded-lg sm:col-span-5 lg:col-span-8"
+                            value="{{ $linkButton->url }}" oninput="updateLinkButton({{ $index }})">
                         <button class="items-center justify-center flex-grow col-span-1 "
                             onclick="removeLinkButton(this, {{ $index }})">
                             <i class="block py-2 text-white bg-red-500 rounded-lg bi bi-trash"></i>
@@ -189,7 +188,7 @@
             </div>
         </div>
     </div>
-    {{-- Ganti Background --}}
+    {{-- Background --}}
     <div class="mx-auto mb-3">
         <h3 class="font-bold">Background</h3>
         <div class="p-3 bg-white rounded-lg shadow-lg">
@@ -252,6 +251,7 @@
             </div>
         </div>
     </div>
+    {{-- Font --}}
     <div class="flex-grow mb-3">
         <h3 class="font-bold">Font</h3>
         <div class="p-3 bg-white rounded-lg shadow">

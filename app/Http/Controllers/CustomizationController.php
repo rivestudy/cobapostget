@@ -24,7 +24,7 @@ class CustomizationController extends Controller
             'user_id' => $user_id,
             'title' => 'Title',
             'about' => 'About goes here',
-            'display_preview_class' => '',
+            'display_preview_class' => 'no-scrollbar overflow-y-auto displayPreview  my-auto h-full mb-0 w-full flex-grow-1 rounded-b-2xl bg-white',
             'display_preview_bg' => '',
             'display_' => '',
         ]);

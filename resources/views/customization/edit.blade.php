@@ -55,7 +55,8 @@
     </div>
     {{-- Area Preview --}}
     <div class="sticky top-0 w-full p-4 text-xl font-bold bg-gray-300 xl:w-1/3" style="max-height:100vh">
-        <div class="mx-auto overflow-hidden rounded-3xl border-8 border-black bg-black w-[420px] xl:w-[420px] h-[900px] mt-6 xl:mt-0">
+        <div
+            class="mx-auto overflow-hidden rounded-3xl border-8 border-black bg-black w-[420px] xl:w-[420px] h-[900px] mt-6 xl:mt-0">
             {{-- Header Notif Bar --}}
             <h1 class="sticky top-0 w-full px-3 text-right text-white bg-gray-400 rounded-t-2xl">5G ᯤ | 50%</h1>
             {{-- Container Utama --}}
@@ -80,8 +81,7 @@
                         id="titlePreview">{{ $customization->title }}</h1>
                     <p class="mb-4 text-center break-words whitespace-normal About" id="aboutPreview">
                         {{ $customization->about }}</p>
-                    <div id="linkContainer"
-                        class="flex flex-wrap justify-center p-2 mx-auto space-x-2 previewButtons">
+                    <div id="linkContainer" class="flex flex-wrap justify-center p-2 mx-auto space-x-2 previewButtons">
                         @foreach ($socialButtons as $index => $socialButton)
                             <div class="mb-2 social-button-wrapper" data-id="{{ $index }}">
                                 <a class="{{ $socialButton->icon }}" href="{{ $socialButton->url }}"></a>
@@ -161,9 +161,11 @@
                 displayElement.style.color = dataset.fontcolor;
             }
         }
+
         function changeFontWhite() {
             changeFontColor('white');
         }
+
         function changeFontBlack() {
             changeFontColor('black');
         }
@@ -172,6 +174,7 @@
         function openWarna() {
             document.getElementById('modalWarna').classList.remove('hidden');
         }
+
         function closeWarna() {
             document.getElementById('modalWarna').classList.add('hidden');
         }
@@ -313,6 +316,7 @@
             const titletext = document.getElementById('titleInput').value;
             document.querySelector(`.Title`).innerText = titletext;
         }
+
         function updateAbout() {
             const abouttext = document.getElementById('aboutInput').value;
             document.querySelector(`.About`).innerText = abouttext;
@@ -325,6 +329,7 @@
                     '{{ $index }}');
             @endforeach
         });
+
         function createExistingLink(iconClass, url, id) {
             const createElement = (type, classes, value = '') => {
                 const el = document.createElement(type);
@@ -343,6 +348,7 @@
             linkWrapper.appendChild(linkButton);
             linkContainer.appendChild(linkWrapper);
         }
+
         function generateLinkInput() {
             const linkInputValue = document.getElementById('newLinkInput').value.trim();
             const iconSelect = document.getElementById('newIconSelect');
@@ -356,6 +362,7 @@
             document.getElementById('newLinkInput').value = '';
             iconSelect.selectedIndex = 0;
         }
+
         function createNewLink(iconClass, url, id) {
             const createElement = (type, classes, value = '') => {
                 const el = document.createElement(type);
@@ -380,27 +387,30 @@
             linkInputItem.setAttribute('data-id', id);
 
             const inputElement = createElement('input',
-                'flex-grow h-full col-span-2 p-2 bg-transparent border border-gray-300 rounded-lg sm:col-span-5 lg:col-span-10',
+                'flex-grow h-full col-span-3 p-2 bg-transparent border border-gray-300 rounded-lg sm:col-span-5 lg:col-span-10',
                 url);
             inputElement.setAttribute('data-icon', iconClass);
+            inputElement.addEventListener('input', function() {
+                updateLink(id);
+            });
 
             const iconDropdown = createElement('select',
-                'flex-grow h-full col-span-2 p-2 bg-transparent border border-gray-300 rounded-lg sm:col-span-3 lg:col-span-4 icon-select'
+                'flex-grow h-full col-span-2 p-2 bg-transparent border border-gray-300 rounded-lg sm:col-span-4 lg:col-span-5 icon-select'
             );
             iconDropdown.innerHTML = document.getElementById('newIconSelect').innerHTML;
             iconDropdown.value = iconClass;
-
-            const updateButton = createElement('button', '', '');
-            updateButton.innerHTML = '<i class="block py-2 text-white bg-blue-500 rounded-lg bi bi-floppy"></i>'
-            updateButton.onclick = () => updateLink(id);
+            iconDropdown.addEventListener('change', function() {
+                updateLink(id);
+            });
 
             const deleteButton = createElement('button', '', '');
             deleteButton.innerHTML = '<i class="block py-2 text-white bg-red-500 rounded-lg bi bi-trash"></i>'
             deleteButton.onclick = () => removeLink(deleteButton, id);
 
-            linkInputItem.append(inputElement, iconDropdown, updateButton, deleteButton);
+            linkInputItem.append(inputElement, iconDropdown, deleteButton);
             linkInputs.appendChild(linkInputItem);
         }
+
         function removeLink(button, id) {
             const linkInputItem = document.querySelector(`#linkInputs .link-input-item[data-id="${id}"]`);
             if (linkInputItem) linkInputItem.remove();
@@ -410,6 +420,7 @@
 
             console.log(`Link with ID ${id} removed.`);
         }
+
         function updateLink(id) {
             const linkInputItem = document.querySelector(`#linkInputs .link-input-item[data-id="${id}"]`);
             if (!linkInputItem) return;
@@ -441,6 +452,7 @@
                     '{{ $index }}');
             @endforeach
         });
+
         function createExistingLinkButton(text, url, id) {
             const linkContainer = document.getElementById('buttonContainer');
             const buttonWrapper = document.createElement('div');
@@ -455,6 +467,7 @@
             buttonWrapper.appendChild(linkButton);
             linkContainer.appendChild(buttonWrapper);
         }
+
         function addLinkButton() {
             const textInput = document.getElementById('textInput').value.trim();
             const urlInput = document.getElementById('urlInput').value.trim();
@@ -466,6 +479,7 @@
             document.getElementById('textInput').value = '';
             document.getElementById('urlInput').value = '';
         }
+
         function createNewLinkButton(text, url, id) {
             const linkContainer = document.getElementById('linkContainers');
             const buttonContainer = document.getElementById('buttonContainer');
@@ -479,23 +493,24 @@
                 'flex-grow h-full col-span-2 p-2 bg-transparent border border-gray-300 rounded-lg sm:col-span-4 lg:col-span-7';
             textElement.value = text;
             textElement.dataset.url = url;
+            textElement.addEventListener('input', function() {
+                updateLinkButton(id);
+            });
 
             const urlElement = document.createElement('input');
             urlElement.className =
-                'flex-grow h-full col-span-2 p-2 bg-transparent border border-gray-300 rounded-lg sm:col-span-4 lg:col-span-7';
+                'flex-grow h-full col-span-3 p-2 bg-transparent border border-gray-300 rounded-lg sm:col-span-5 lg:col-span-8';
             urlElement.value = url;
-
-            const updateButton = document.createElement('button');
-            updateButton.className = 'items-center justify-center flex-grow col-span-1';
-            updateButton.innerHTML = '<i class="block py-2 text-white bg-blue-500 rounded-lg bi bi-floppy"></i>';
-            updateButton.onclick = () => updateLinkButton(id);
+            urlElement.addEventListener('input', function() {
+                updateLinkButton(id);
+            });
 
             const deleteButton = document.createElement('button');
             deleteButton.className = 'items-center justify-center flex-grow col-span-1';
             deleteButton.innerHTML = '<i class="block py-2 text-white bg-red-500 rounded-lg bi bi-trash"></i>';
             deleteButton.onclick = () => removeLinkButton(deleteButton, id);
 
-            linkInputItem.append(textElement, urlElement, updateButton, deleteButton);
+            linkInputItem.append(textElement, urlElement, deleteButton);
             linkContainer.appendChild(linkInputItem);
 
             const buttonWrapper = document.createElement('div');
@@ -510,6 +525,7 @@
             buttonWrapper.appendChild(newButton);
             buttonContainer.appendChild(buttonWrapper);
         }
+
         function updateLinkButton(id) {
             const linkInputItem = document.querySelector(`#linkContainers .link-input-item[data-id="${id}"]`);
             if (!linkInputItem) return;
@@ -531,6 +547,7 @@
                 linkButton.textContent = newText;
             }
         }
+
         function removeLinkButton(button, id) {
             const linkInputItem = document.querySelector(`#linkContainers .link-input-item[data-id="${id}"]`);
             if (linkInputItem) linkInputItem.remove();
