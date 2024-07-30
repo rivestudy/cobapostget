@@ -88,10 +88,10 @@
                             </div>
                         @endforeach
                     </div>
-                    <div id="buttonContainer" class="justify-center w-full px-2 mt-4 space-y-2">
+                    <div id="buttonContainer" class="justify-center w-full px-2 mt-4 space-y-4">
                         @foreach ($linkButtons as $index => $linkButton)
                             <div class="link-button-wrapper" data-id="{{ $index }}">
-                                <a class="flex-grow block p-2 text-center border border-gray-300 rounded shadow-xl link-button"
+                                <a class="flex-grow block p-5 text-center border border-gray-300 rounded shadow-xl link-button"
                                     href="{{ $linkButton->url }}">{{ $linkButton->text }}</a>
                             </div>
                         @endforeach
@@ -145,15 +145,15 @@
 
             if (dataset.background === '') {
                 displayElement.className =
-                    `no-scrollbar overflow-y-auto displayPreview  my-auto h-full mb-0 w-full flex-grow-1 rounded-b-2xl font-${dataset.font}`;
+                    `no-scrollbar overflow-y-auto displayPreview my-auto h-full mb-0 pb-24 w-full flex-grow-1 rounded-b-2xl font-${dataset.font}`;
                 displayElement.style.backgroundImage = databg;
             } else if (dataset.font === '') {
                 displayElement.className =
-                    `no-scrollbar overflow-y-auto displayPreview my-auto h-full mb-0 w-full ${datafont} flex-grow-1 rounded-b-2xl`;
+                    `no-scrollbar overflow-y-auto displayPreview my-auto h-full mb-0 pb-24 w-full ${datafont} flex-grow-1 rounded-b-2xl`;
                 displayElement.style.backgroundImage = dataset.background;
             } else {
                 displayElement.className =
-                    `no-scrollbar overflow-y-auto displayPreview my-auto h-full mb-0 w-full flex-grow-1 rounded-b-2xl font-${dataset.font}`;
+                    `no-scrollbar overflow-y-auto displayPreview my-auto h-full mb-0 pb-24 w-full flex-grow-1 rounded-b-2xl font-${dataset.font}`;
                 displayElement.style.backgroundImage = dataset.background;
             }
 
@@ -518,7 +518,7 @@
             buttonWrapper.setAttribute('data-id', id);
 
             const newButton = document.createElement('a');
-            newButton.className = 'flex-grow block p-2 text-center border border-gray-300 rounded shadow-xl link-button';
+            newButton.className = 'flex-grow block p-5 text-center border border-gray-300 rounded shadow-xl link-button';
             newButton.href = url;
             newButton.textContent = text;
 

@@ -3,18 +3,22 @@
         width: 32px;
         height: 32px;
     }
+
     #filbanner {
         display: none;
     }
+
     #filprofile {
         display: none;
     }
+
     .no-scrollbar::-webkit-scrollbar {
         display: none;
     }
+
     .no-scrollbar {
         -ms-overflow-style: none;
-        scrollbar-width: none;  
+        scrollbar-width: none;
     }
 </style>
 <div class="flex-grow max-w-full p-8 shadow-2xl customizations">
@@ -114,7 +118,8 @@
                         data-id="{{ $index }}">
                         <input type="text"
                             class="flex-grow h-full col-span-3 p-2 bg-transparent border border-gray-300 rounded-lg sm:col-span-5 lg:col-span-10"
-                            value="{{ $socialButton->url }}" data-icon="{{ $socialButton->icon }}" oninput="updateLink({{ $index }})">
+                            value="{{ $socialButton->url }}" data-icon="{{ $socialButton->icon }}"
+                            oninput="updateLink({{ $index }})">
                         <?php
                         // Extract data icon
                         $iconClass = '';
@@ -175,7 +180,8 @@
                         data-id="{{ $index }}">
                         <input type="text"
                             class="flex-grow col-span-2 p-2 border border-gray-300 rounded-lg sm:col-span-4 lg:col-span-7"
-                            value="{{ $linkButton->text }}" data-url="{{ $linkButton->url }}" oninput="updateLinkButton({{ $index }})">
+                            value="{{ $linkButton->text }}" data-url="{{ $linkButton->url }}"
+                            oninput="updateLinkButton({{ $index }})">
                         <input type="text"
                             class="flex-grow col-span-3 p-2 border border-gray-300 rounded-lg sm:col-span-5 lg:col-span-8"
                             value="{{ $linkButton->url }}" oninput="updateLinkButton({{ $index }})">
@@ -281,6 +287,60 @@
                 <x-button class="w-full font-rubikmonoone" onclick="changeFont('rubikmonoone')">Rubik Mono</x-button>
                 <x-button class="w-full font-merienda" onclick="changeFont('merienda')">Merienda</x-button>
                 <x-button class="w-full font-kalam" onclick="changeFont('kalam')">Kalam</x-button>
+            </div>
+        </div>
+    </div>
+    {{-- Button --}}
+    <div class="mx-auto mb-3">
+        <h3 class="font-bold">Button Properties</h3>
+        <div class="static p-3 bg-white rounded-lg shadow-lg">
+            <div class="grid grid-cols-1 gap-2 mx-auto sm:grid-cols-2 md:grid-cols-3">
+                <button class="w-56 p-2 mx-auto bg-gray-200">Style 1</button>
+                <button class="w-56 p-2 mx-auto bg-gray-200">Style 1</button>
+                <button class="w-56 p-2 mx-auto bg-gray-200">Style 1</button>
+                <button class="w-56 p-2 mx-auto bg-gray-200">Style 1</button>
+                <button class="w-56 p-2 mx-auto bg-gray-200">Style 1</button>
+              
+
+            </div>
+            <div id="modalWarna" class="fixed inset-0 items-center justify-center hidden bg-gray-800 bg-opacity-75">
+                <div class="w-1/3 p-6 mx-auto mt-[30vh] bg-white rounded-lg shadow-lg">
+                    <span class="text-2xl text-gray-700 cursor-pointer float-end close"
+                        onclick="closeWarna()">&times;</span>
+                    <div>
+                        <label for="grad-1">Custom Gradient</label>
+                        <div class="flex mt-2 space-x-2">
+                            <input class="w-1/6 h-12 rounded" type="color" id="grad-1"
+                                oninput="applyCustomBackground()">
+                            <p id="color1" class="w-1/6">#color1</p>
+                        </div>
+                        <div class="flex mt-2 space-x-2">
+                            <input class="w-1/6 h-12 rounded" type="color" id="grad-2"
+                                oninput="applyCustomBackground()">
+                            <p id="color2" class="w-1/6">#color2</p>
+                        </div>
+                        <div class="mt-4">
+                            <label for="gradient-direction">Gradient Direction</label>
+                            <select id="gradient-direction" class="w-1/3 p-2 border rounded"
+                                onchange="applyCustomBackground()">
+                                <option value="to top right">To Top Right</option>
+                                <option value="to bottom right">To Bottom Right</option>
+                                <option value="to bottom left">To Bottom Left</option>
+                                <option value="to top left">To Top Left</option>
+                                <option value="to top">To Top</option>
+                                <option value="to bottom">To Bottom</option>
+                                <option value="to left">To Left</option>
+                                <option value="to right">To Right</option>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <label for="font-c">Font Color</label>
+                        <div class="flex mt-2 space-x-2">
+                            <input type="color" id="font-c" class="w-1/6 h-10 p-0 rounded">
+                            <p id="font-color-hex" class="w-1/6">#color</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
