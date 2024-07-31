@@ -277,6 +277,10 @@
             }
         }
 
+        function changebtnprops(btnclass, btnstyle){
+            //target document.queryselectorall('link-button');
+        }
+
         // Load data dri database
         window.addEventListener('DOMContentLoaded', function() {
             const profileImg = document.getElementById('profilePreview');

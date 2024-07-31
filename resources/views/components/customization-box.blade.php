@@ -293,15 +293,23 @@
     {{-- Button --}}
     <div class="mx-auto mb-3">
         <h3 class="font-bold">Button Properties</h3>
-        <div class="static p-3 bg-white rounded-lg shadow-lg">
-            <div class="grid grid-cols-1 gap-2 mx-auto sm:grid-cols-2 md:grid-cols-3">
-                <button class="w-56 p-2 mx-auto bg-gray-200">Style 1</button>
-                <button class="w-56 p-2 mx-auto bg-gray-200">Style 1</button>
-                <button class="w-56 p-2 mx-auto bg-gray-200">Style 1</button>
-                <button class="w-56 p-2 mx-auto bg-gray-200">Style 1</button>
-                <button class="w-56 p-2 mx-auto bg-gray-200">Style 1</button>
-              
-
+        <div class="bg-white rounded-lg shadow-lg">
+            <div class="grid items-center grid-cols-1 mx-auto gap-y-2 md:grid-cols-2">
+                <button class="w-[400px] h-[58px] p-4 mx-auto bg-center bg-contain bg-no-repeat" style="background-image: url(/assets/box1.svg)">Style 1</button>
+                <button class="w-[400px] h-[62px] p-4 mx-auto bg-center bg-contain bg-no-repeat" style="background-image: url(/assets/box2.svg)">Style 1</button>
+                <button class="w-[400px] h-[67px] p-4 mx-auto bg-center bg-contain bg-no-repeat" style="background-image: url(/assets/box3.svg)">Style 1</button>
+                <button class="w-[400px] h-[58px] p-4 mx-auto bg-center bg-contain bg-no-repeat" style="background-image: url(/assets/round1.svg)">Style 1</button>
+                <button class="w-[400px] h-[62px] p-4 mx-auto bg-center bg-contain bg-no-repeat" style="background-image: url(/assets/round2.svg)">Style 1</button>
+                <button class="w-[400px] h-[67px] p-4 mx-auto bg-center bg-contain bg-no-repeat" style="background-image: url(/assets/round3.svg)">Style 1</button>
+                <button class="w-[400px] h-[58px] p-4 mx-auto bg-center bg-contain bg-no-repeat" style="background-image: url(/assets/roundin1.svg)">Style 1</button>
+                <button class="w-[400px] h-[62px] p-4 mx-auto bg-center bg-contain bg-no-repeat" style="background-image: url(/assets/roundin2.svg)">Style 1</button>
+                <button class="w-[400px] h-[67px] p-4 mx-auto bg-center bg-contain bg-no-repeat" style="background-image: url(/assets/roundin3.svg)">Style 1</button>
+                <button class="w-[400px] h-[58px] p-4 mx-auto bg-center bg-contain bg-no-repeat" style="background-image: url(/assets/hexa1.svg)">Style 1</button>
+                <button class="w-[400px] h-[62px] p-4 mx-auto bg-center bg-contain bg-no-repeat" style="background-image: url(/assets/hexa2.svg)">Style 1</button>
+                <button class="w-[400px] h-[67px] p-4 mx-auto bg-center bg-contain bg-no-repeat" style="background-image: url(/assets/hexa3.svg)">Style 1</button>
+                <button class="w-[400px] h-[58px] p-4 mx-auto bg-center bg-contain bg-no-repeat" style="background-image: url(/assets/sign1.svg)">Style 1</button>
+                <button class="w-[400px] h-[62px] p-4 mx-auto bg-center bg-contain bg-no-repeat" style="background-image: url(/assets/sign2.svg)">Style 1</button>
+                <button class="w-[400px] h-[67px] p-4 mx-auto bg-center bg-contain bg-no-repeat" style="background-image: url(/assets/sign3.svg)">Style 1</button>
             </div>
             <div id="modalWarna" class="fixed inset-0 items-center justify-center hidden bg-gray-800 bg-opacity-75">
                 <div class="w-1/3 p-6 mx-auto mt-[30vh] bg-white rounded-lg shadow-lg">
