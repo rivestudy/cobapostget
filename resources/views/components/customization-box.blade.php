@@ -20,6 +20,10 @@
         -ms-overflow-style: none;
         scrollbar-width: none;
     }
+    .button {
+    --fill0-color: white; /* Default color for .fill0 */
+    --fill1-color: black; /* Default color for .fill1 */
+}
 </style>
 <div class="flex-grow max-w-full p-8 shadow-2xl customizations">
     {{-- Link Profil --}}
@@ -295,21 +299,84 @@
         <h3 class="font-bold">Button Properties</h3>
         <div class="bg-white rounded-lg shadow-lg">
             <div class="grid items-center grid-cols-1 mx-auto gap-y-2 md:grid-cols-2">
-                <button class="w-[400px] h-[58px] p-4 mx-auto bg-center bg-contain bg-no-repeat" style="background-image: url(/assets/box1.svg)">Style 1</button>
-                <button class="w-[400px] h-[62px] p-4 mx-auto bg-center bg-contain bg-no-repeat" style="background-image: url(/assets/box2.svg)">Style 1</button>
-                <button class="w-[400px] h-[67px] p-4 mx-auto bg-center bg-contain bg-no-repeat" style="background-image: url(/assets/box3.svg)">Style 1</button>
-                <button class="w-[400px] h-[58px] p-4 mx-auto bg-center bg-contain bg-no-repeat" style="background-image: url(/assets/round1.svg)">Style 1</button>
-                <button class="w-[400px] h-[62px] p-4 mx-auto bg-center bg-contain bg-no-repeat" style="background-image: url(/assets/round2.svg)">Style 1</button>
-                <button class="w-[400px] h-[67px] p-4 mx-auto bg-center bg-contain bg-no-repeat" style="background-image: url(/assets/round3.svg)">Style 1</button>
-                <button class="w-[400px] h-[58px] p-4 mx-auto bg-center bg-contain bg-no-repeat" style="background-image: url(/assets/roundin1.svg)">Style 1</button>
-                <button class="w-[400px] h-[62px] p-4 mx-auto bg-center bg-contain bg-no-repeat" style="background-image: url(/assets/roundin2.svg)">Style 1</button>
-                <button class="w-[400px] h-[67px] p-4 mx-auto bg-center bg-contain bg-no-repeat" style="background-image: url(/assets/roundin3.svg)">Style 1</button>
-                <button class="w-[400px] h-[58px] p-4 mx-auto bg-center bg-contain bg-no-repeat" style="background-image: url(/assets/hexa1.svg)">Style 1</button>
-                <button class="w-[400px] h-[62px] p-4 mx-auto bg-center bg-contain bg-no-repeat" style="background-image: url(/assets/hexa2.svg)">Style 1</button>
-                <button class="w-[400px] h-[67px] p-4 mx-auto bg-center bg-contain bg-no-repeat" style="background-image: url(/assets/hexa3.svg)">Style 1</button>
-                <button class="w-[400px] h-[58px] p-4 mx-auto bg-center bg-contain bg-no-repeat" style="background-image: url(/assets/sign1.svg)">Style 1</button>
-                <button class="w-[400px] h-[62px] p-4 mx-auto bg-center bg-contain bg-no-repeat" style="background-image: url(/assets/sign2.svg)">Style 1</button>
-                <button class="w-[400px] h-[67px] p-4 mx-auto bg-center bg-contain bg-no-repeat" style="background-image: url(/assets/sign3.svg)">Style 1</button>
+                <button class="w-[400px] h-[58px] p-4 mx-auto bg-center bg-contain bg-no-repeat"
+                    style="background-image: url('/assets/box1.svg'); background-color: red"
+                    onclick="changeBtnProps('h-20', {backgroundImage: 'url(/assets/box1.svg)'})">
+                    Style 1
+                </button>
+                <x-btnboxsvg1 class="bg-contain" fill0="#ff2222" fill1="#4400ff"></x-btnboxsvg1>
+
+                <button class="w-[400px] h-[62px] p-4 mx-auto bg-center bg-contain bg-no-repeat"
+                    style="background-image: url('/assets/box2.svg')"
+                    onclick="changeBtnProps('h-24', {backgroundImage: 'url(/assets/box2.svg)'})">
+                    Style 1
+                </button>
+                <button class="w-[400px] h-[67px] p-4 mx-auto bg-center bg-contain bg-no-repeat"
+                    style="background-image: url('/assets/box3.svg')"
+                    onclick="changeBtnProps('h-28', {backgroundImage: 'url(/assets/box3.svg)'})">
+                    Style 1
+                </button>
+                <button class="w-[400px] h-[58px] p-4 mx-auto bg-center bg-contain bg-no-repeat"
+                    style="background-image: url('/assets/round1.svg')"
+                    onclick="changeBtnProps('h-20', {backgroundImage: 'url(/assets/round1.svg)'})">
+                    Style 1
+                </button>
+                <button class="w-[400px] h-[62px] p-4 mx-auto bg-center bg-contain bg-no-repeat"
+                    style="background-image: url('/assets/round2.svg')"
+                    onclick="changeBtnProps('h-24', {backgroundImage: 'url(/assets/round2.svg)'})">
+                    Style 1
+                </button>
+                <button class="w-[400px] h-[67px] p-4 mx-auto bg-center bg-contain bg-no-repeat"
+                    style="background-image: url('/assets/round3.svg')"
+                    onclick="changeBtnProps('h-28', {backgroundImage: 'url(/assets/round3.svg)'})">
+                    Style 1
+                </button>
+                <button class="w-[400px] h-[58px] p-4 mx-auto bg-center bg-contain bg-no-repeat"
+                    style="background-image: url('/assets/roundin1.svg')"
+                    onclick="changeBtnProps('h-20', {backgroundImage: 'url(/assets/roundin1.svg)'})">
+                    Style 1
+                </button>
+                <button class="w-[400px] h-[62px] p-4 mx-auto bg-center bg-contain bg-no-repeat"
+                    style="background-image: url('/assets/roundin2.svg')"
+                    onclick="changeBtnProps('h-24', {backgroundImage: 'url(/assets/roundin2.svg)'})">
+                    Style 1
+                </button>
+                <button class="w-[400px] h-[67px] p-4 mx-auto bg-center bg-contain bg-no-repeat"
+                    style="background-image: url('/assets/roundin3.svg')"
+                    onclick="changeBtnProps('h-28', {backgroundImage: 'url(/assets/roundin3.svg)'})">
+                    Style 1
+                </button>
+                <button class="w-[400px] h-[58px] p-4 mx-auto bg-center bg-contain bg-no-repeat"
+                    style="background-image: url('/assets/hexa1.svg')"
+                    onclick="changeBtnProps('h-20', {backgroundImage: 'url(/assets/hexa1.svg)'})">
+                    Style 1
+                </button>
+                <button class="w-[400px] h-[62px] p-4 mx-auto bg-center bg-contain bg-no-repeat"
+                    style="background-image: url('/assets/hexa2.svg')"
+                    onclick="changeBtnProps('h-24', {backgroundImage: 'url(/assets/hexa2.svg)'})">
+                    Style 1
+                </button>
+                <button class="w-[400px] h-[67px] p-4 mx-auto bg-center bg-contain bg-no-repeat"
+                    style="background-image: url('/assets/hexa3.svg')"
+                    onclick="changeBtnProps('h-28', {backgroundImage: 'url(/assets/hexa3.svg)'})">
+                    Style 1
+                </button>
+                <button class="w-[400px] h-[58px] p-4 mx-auto bg-center bg-contain bg-no-repeat"
+                    style="background-image: url('/assets/sign1.svg')"
+                    onclick="changeBtnProps('h-20', {backgroundImage: 'url(/assets/sign1.svg)'})">
+                    Style 1
+                </button>
+                <button class="w-[400px] h-[62px] p-4 mx-auto bg-center bg-contain bg-no-repeat"
+                    style="background-image: url('/assets/sign2.svg')"
+                    onclick="changeBtnProps('h-24', {backgroundImage: 'url(/assets/sign2.svg)'})">
+                    Style 1
+                </button>
+                <button class="w-[400px] h-[67px] p-4 mx-auto bg-center bg-contain bg-no-repeat"
+                    style="background-image: url('/assets/sign3.svg')"
+                    onclick="changeBtnProps('h-28', {backgroundImage: 'url(/assets/sign3.svg)'})">
+                    Style 1
+                </button>
+
             </div>
             <div id="modalWarna" class="fixed inset-0 items-center justify-center hidden bg-gray-800 bg-opacity-75">
                 <div class="w-1/3 p-6 mx-auto mt-[30vh] bg-white rounded-lg shadow-lg">

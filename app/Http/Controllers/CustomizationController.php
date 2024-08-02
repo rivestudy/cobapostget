@@ -25,8 +25,9 @@ class CustomizationController extends Controller
             'title' => 'Title',
             'about' => 'About goes here',
             'display_preview_class' => 'no-scrollbar overflow-y-auto displayPreview  my-auto h-full mb-0 w-full flex-grow-1 rounded-b-2xl bg-white',
-            'display_preview_bg' => '',
-            'display_' => '',
+            'display_preview_bg' => 'background-image: linear-gradient(to right top, rgb(203, 213, 224), rgb(255, 255, 255)); color: black',
+            'display_btn_prop' => '',
+            'display_btn_style' => '',
         ]);
     }
 
@@ -74,6 +75,8 @@ public function update(Request $request)
     $customization->about = $request->input('about_input', $customization->about);
     $customization->display_preview_class = $request->input('display_preview_class', $customization->display_preview_class);
     $customization->display_preview_bg = $request->input('display_preview_bg', $customization->display_preview_bg);
+    $customization->display_btn_style = $request->input('display_btn_style', $customization->display_btn_style);
+    $customization->display_btn_prop = $request->input('display_btn_prop', $customization->display_btn_prop);
     $customization->save();
 
     // Handle social buttons update

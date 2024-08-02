@@ -43,13 +43,18 @@
                     {{-- PP --}}
                     <input type="file" name="profile" id="profileFileInput" class="hidden" accept="image/*"
                         oninput="previewImage('profileFileInput', 'profilePreview')">
+                    {{-- Button Style --}}
+                    <input type="text" name="btnstyle_input" id="btnStyleInput" value="{{ $customization->display_btn_style }}">
+                    <input type="text" name="btnprops_input" id="btnPropInput" value="{{ $customization->display_btn_prop }}">
                     {{-- Link Sosmed --}}
                     <div class="hidden" id="socialButtonsContainer"></div>
                     {{-- Link Tombol --}}
                     <div class="hidden" id="linkButtonsContainer"></div>
                     <button class="p-2 px-4 font-bold text-white bg-green-500 rounded-lg" type="submit"
                         onclick="setProps()">Save Previews</button>
+                    
                 </form>
+                <button onclick="setProps()">test</button>
             </div>
         </x-customization-box>
     </div>
@@ -203,8 +208,11 @@
             const slugInput = document.getElementById('slug_input');
             const displayPreviewInput = document.getElementById('displayPreviewInput');
             const displayPreview = document.querySelector('.displayPreview');
+            const linkbuttons = document.querySelector('.link-button');
             const titlePreviewInput = document.getElementById('titlePreviewInput');
             const aboutPreviewInput = document.getElementById('aboutPreviewInput');
+            const btnPropsInput = document.getElementById('btnPropsInput');
+            const btnStyleInput = document.getElementById('btnStyleInput');
             const socialButtonsContainer = document.getElementById('socialButtonsContainer');
             const linkButtonsContainer = document.getElementById('linkButtonsContainer');
 
@@ -214,6 +222,9 @@
             titlePreviewInput.value = document.getElementById('titlePreview').innerText;
             aboutPreviewInput.value = document.getElementById('aboutPreview').innerText;
             slugInput.value = document.getElementById('slugInput').value;
+            btnStyleInput.value = `background-image: ${linkbuttons.style.backgroundImage}`;
+            btnPropsInput.value = linkbuttons.className;
+
 
             // Clear containers
             socialButtonsContainer.innerHTML = '';
@@ -277,8 +288,17 @@
             }
         }
 
-        function changebtnprops(btnclass, btnstyle){
-            //target document.queryselectorall('link-button');
+        function changeBtnProps(btnClass, btnStyle) {
+            // Select all elements with the specified class
+            const buttons = document.querySelectorAll(`.link-button`);
+
+            buttons.forEach(button => {
+                // Update the class names
+                button.className = `${btnClass} flex items-center justify-center p-5 text-center link-button bg-contain bg-no-repeat bg-center`;
+
+                // Apply the styles
+                Object.assign(button.style, btnStyle);
+            });
         }
 
         // Load data dri database
