@@ -44,15 +44,17 @@
                     <input type="file" name="profile" id="profileFileInput" class="hidden" accept="image/*"
                         oninput="previewImage('profileFileInput', 'profilePreview')">
                     {{-- Button Style --}}
-                    <input type="text" name="btnstyle_input" id="btnStyleInput" value="{{ $customization->display_btn_style }}">
-                    <input type="text" name="btnprops_input" id="btnPropInput" value="{{ $customization->display_btn_prop }}">
+                    <input type="text" name="btnstyle_input" id="btnStyleInput"
+                        value="{{ $customization->display_btn_style }}">
+                    <input type="text" name="btnprops_input" id="btnPropInput"
+                        value="{{ $customization->display_btn_prop }}">
                     {{-- Link Sosmed --}}
-                    <div class="hidden" id="socialButtonsContainer"></div>
+                    <div class="" id="socialButtonsContainer"></div>
                     {{-- Link Tombol --}}
-                    <div class="hidden" id="linkButtonsContainer"></div>
+                    <div class="" id="linkButtonsContainer"></div>
                     <button class="p-2 px-4 font-bold text-white bg-green-500 rounded-lg" type="submit"
                         onclick="setProps()">Save Previews</button>
-                    
+
                 </form>
                 <button onclick="setProps()">test</button>
             </div>
@@ -96,8 +98,12 @@
                     <div id="buttonContainer" class="justify-center w-full px-2 mt-4 space-y-4">
                         @foreach ($linkButtons as $index => $linkButton)
                             <div class="link-button-wrapper" data-id="{{ $index }}">
-                                <a class="flex-grow block p-5 text-center border border-gray-300 rounded shadow-xl link-button"
-                                    href="{{ $linkButton->url }}">{{ $linkButton->text }}</a>
+                                @php
+                                    $buttonComponent = 'aboxsvg1';
+                                @endphp
+                                <x-dynamic-component :component="$buttonComponent" fill1="#ff0077" fill0="transparent" :url="$linkButton->url">
+                                    {{ $linkButton->text }}
+                                </x-dynamic-component>
                             </div>
                         @endforeach
                     </div>
@@ -222,8 +228,6 @@
             titlePreviewInput.value = document.getElementById('titlePreview').innerText;
             aboutPreviewInput.value = document.getElementById('aboutPreview').innerText;
             slugInput.value = document.getElementById('slugInput').value;
-            btnStyleInput.value = `background-image: ${linkbuttons.style.backgroundImage}`;
-            btnPropsInput.value = linkbuttons.className;
 
 
             // Clear containers
@@ -254,14 +258,16 @@
                 textInput.name = `linkButtons[${index}][text]`;
                 textInput.value = button.textContent;
                 linkButtonsContainer.appendChild(textInput);
-
+            });
+            const linkHrefs = document.querySelectorAll('.link-href');
+            linkHrefs.forEach((href, index) => {
+                console.log('Adding link button input', index);
                 let urlInput = document.createElement('input');
                 urlInput.type = 'text';
                 urlInput.name = `linkButtons[${index}][url]`;
-                urlInput.value = button.href;
+                urlInput.value = href.href;
                 linkButtonsContainer.appendChild(urlInput);
             });
-
             return true;
         }
         // Preview image
@@ -286,19 +292,6 @@
                 };
                 reader.readAsDataURL(file);
             }
-        }
-
-        function changeBtnProps(btnClass, btnStyle) {
-            // Select all elements with the specified class
-            const buttons = document.querySelectorAll(`.link-button`);
-
-            buttons.forEach(button => {
-                // Update the class names
-                button.className = `${btnClass} flex items-center justify-center p-5 text-center link-button bg-contain bg-no-repeat bg-center`;
-
-                // Apply the styles
-                Object.assign(button.style, btnStyle);
-            });
         }
 
         // Load data dri database
@@ -470,27 +463,27 @@
         }
 
         //Load tombol link
-        document.addEventListener('DOMContentLoaded', function() {
-            @foreach ($linkButtons as $index => $linkButton)
-                createExistingLinkButton('{{ $linkButton->text }}', '{{ $linkButton->url }}',
-                    '{{ $index }}');
-            @endforeach
-        });
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     @foreach ($linkButtons as $index => $linkButton)
+        //         createExistingLinkButton('{{ $linkButton->text }}', '{{ $linkButton->url }}',
+        //             '{{ $index }}');
+        //     @endforeach
+        // });
+        
+        // function createExistingLinkButton(text, url, id) {
+        //     const linkContainer = document.getElementById('buttonContainer');
+        //     const buttonWrapper = document.createElement('div');
+        //     buttonWrapper.className = 'link-button-wrapper';
+        //     buttonWrapper.setAttribute('data-id', id);
 
-        function createExistingLinkButton(text, url, id) {
-            const linkContainer = document.getElementById('buttonContainer');
-            const buttonWrapper = document.createElement('div');
-            buttonWrapper.className = 'link-button-wrapper';
-            buttonWrapper.setAttribute('data-id', id);
+        //     const linkButton = document.createElement('a');
+        //     linkButton.className = 'flex-grow block p-2 text-center border border-gray-300 rounded shadow-xl link-button';
+        //     linkButton.href = url;
+        //     linkButton.textContent = text;
 
-            const linkButton = document.createElement('a');
-            linkButton.className = 'flex-grow block p-2 text-center border border-gray-300 rounded shadow-xl link-button';
-            linkButton.href = url;
-            linkButton.textContent = text;
-
-            buttonWrapper.appendChild(linkButton);
-            linkContainer.appendChild(buttonWrapper);
-        }
+        //     buttonWrapper.appendChild(linkButton);
+        //     linkContainer.appendChild(buttonWrapper);
+        // }
 
         function addLinkButton() {
             const textInput = document.getElementById('textInput').value.trim();
@@ -503,7 +496,7 @@
             document.getElementById('textInput').value = '';
             document.getElementById('urlInput').value = '';
         }
-
+        
         function createNewLinkButton(text, url, id) {
             const linkContainer = document.getElementById('linkContainers');
             const buttonContainer = document.getElementById('buttonContainer');

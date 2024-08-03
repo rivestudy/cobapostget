@@ -22,12 +22,14 @@ class CustomizationController extends Controller
         $customization = Customization::create([
             'slug' => '',
             'user_id' => $user_id,
+            'banner' => 'banners/default.png',
+            'profile' => 'banners/default.png',
             'title' => 'Title',
             'about' => 'About goes here',
             'display_preview_class' => 'no-scrollbar overflow-y-auto displayPreview  my-auto h-full mb-0 w-full flex-grow-1 rounded-b-2xl bg-white',
             'display_preview_bg' => 'background-image: linear-gradient(to right top, rgb(203, 213, 224), rgb(255, 255, 255)); color: black',
-            'display_btn_prop' => '',
-            'display_btn_style' => '',
+            'display_btn_prop' => 'abtnboxsvg1',
+            'display_btn_style' => 'fill1="000000" fill0="transparent"',
         ]);
     }
 

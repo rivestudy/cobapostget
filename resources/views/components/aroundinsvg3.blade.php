@@ -1,16 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<!-- Creator: CorelDRAW -->
-<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="138.061mm" height="26.6443mm" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+<a class="relative flex items-center justify-center mx-auto" href="{{ $attributes->get('url') }}">
+    <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="100%" height="100%" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
 viewBox="0 0 3879.77 748.75"
  xmlns:xlink="http://www.w3.org/1999/xlink"
  xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
  <defs>
   <style type="text/css">
-   <![CDATA[
-    .fil1 {fill:black}
-    .fil0 {fill:white}
-   ]]>
+    <![CDATA[
+        .fil1 {fill:{{ $attributes->get('fill1')}}}
+        .fil0 {fill:{{ $attributes->get('fill0') }}}
+       ]]>
   </style>
  </defs>
  <g id="Layer_x0020_1">
@@ -23,3 +21,7 @@ viewBox="0 0 3879.77 748.75"
   </g>
  </g>
 </svg>
+<span class="absolute text-center" style="color: {{ $attributes->get('textColor', '#000') }};">
+    {{ $slot }}
+</span>
+</a>

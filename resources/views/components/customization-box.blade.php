@@ -298,85 +298,22 @@
     <div class="mx-auto mb-3">
         <h3 class="font-bold">Button Properties</h3>
         <div class="bg-white rounded-lg shadow-lg">
-            <div class="grid items-center grid-cols-1 mx-auto gap-y-2 md:grid-cols-2">
-                <button class="w-[400px] h-[58px] p-4 mx-auto bg-center bg-contain bg-no-repeat"
-                    style="background-image: url('/assets/box1.svg'); background-color: red"
-                    onclick="changeBtnProps('h-20', {backgroundImage: 'url(/assets/box1.svg)'})">
-                    Style 1
-                </button>
-                <x-btnboxsvg1 class="bg-contain" fill0="#ff2222" fill1="#4400ff"></x-btnboxsvg1>
-
-                <button class="w-[400px] h-[62px] p-4 mx-auto bg-center bg-contain bg-no-repeat"
-                    style="background-image: url('/assets/box2.svg')"
-                    onclick="changeBtnProps('h-24', {backgroundImage: 'url(/assets/box2.svg)'})">
-                    Style 1
-                </button>
-                <button class="w-[400px] h-[67px] p-4 mx-auto bg-center bg-contain bg-no-repeat"
-                    style="background-image: url('/assets/box3.svg')"
-                    onclick="changeBtnProps('h-28', {backgroundImage: 'url(/assets/box3.svg)'})">
-                    Style 1
-                </button>
-                <button class="w-[400px] h-[58px] p-4 mx-auto bg-center bg-contain bg-no-repeat"
-                    style="background-image: url('/assets/round1.svg')"
-                    onclick="changeBtnProps('h-20', {backgroundImage: 'url(/assets/round1.svg)'})">
-                    Style 1
-                </button>
-                <button class="w-[400px] h-[62px] p-4 mx-auto bg-center bg-contain bg-no-repeat"
-                    style="background-image: url('/assets/round2.svg')"
-                    onclick="changeBtnProps('h-24', {backgroundImage: 'url(/assets/round2.svg)'})">
-                    Style 1
-                </button>
-                <button class="w-[400px] h-[67px] p-4 mx-auto bg-center bg-contain bg-no-repeat"
-                    style="background-image: url('/assets/round3.svg')"
-                    onclick="changeBtnProps('h-28', {backgroundImage: 'url(/assets/round3.svg)'})">
-                    Style 1
-                </button>
-                <button class="w-[400px] h-[58px] p-4 mx-auto bg-center bg-contain bg-no-repeat"
-                    style="background-image: url('/assets/roundin1.svg')"
-                    onclick="changeBtnProps('h-20', {backgroundImage: 'url(/assets/roundin1.svg)'})">
-                    Style 1
-                </button>
-                <button class="w-[400px] h-[62px] p-4 mx-auto bg-center bg-contain bg-no-repeat"
-                    style="background-image: url('/assets/roundin2.svg')"
-                    onclick="changeBtnProps('h-24', {backgroundImage: 'url(/assets/roundin2.svg)'})">
-                    Style 1
-                </button>
-                <button class="w-[400px] h-[67px] p-4 mx-auto bg-center bg-contain bg-no-repeat"
-                    style="background-image: url('/assets/roundin3.svg')"
-                    onclick="changeBtnProps('h-28', {backgroundImage: 'url(/assets/roundin3.svg)'})">
-                    Style 1
-                </button>
-                <button class="w-[400px] h-[58px] p-4 mx-auto bg-center bg-contain bg-no-repeat"
-                    style="background-image: url('/assets/hexa1.svg')"
-                    onclick="changeBtnProps('h-20', {backgroundImage: 'url(/assets/hexa1.svg)'})">
-                    Style 1
-                </button>
-                <button class="w-[400px] h-[62px] p-4 mx-auto bg-center bg-contain bg-no-repeat"
-                    style="background-image: url('/assets/hexa2.svg')"
-                    onclick="changeBtnProps('h-24', {backgroundImage: 'url(/assets/hexa2.svg)'})">
-                    Style 1
-                </button>
-                <button class="w-[400px] h-[67px] p-4 mx-auto bg-center bg-contain bg-no-repeat"
-                    style="background-image: url('/assets/hexa3.svg')"
-                    onclick="changeBtnProps('h-28', {backgroundImage: 'url(/assets/hexa3.svg)'})">
-                    Style 1
-                </button>
-                <button class="w-[400px] h-[58px] p-4 mx-auto bg-center bg-contain bg-no-repeat"
-                    style="background-image: url('/assets/sign1.svg')"
-                    onclick="changeBtnProps('h-20', {backgroundImage: 'url(/assets/sign1.svg)'})">
-                    Style 1
-                </button>
-                <button class="w-[400px] h-[62px] p-4 mx-auto bg-center bg-contain bg-no-repeat"
-                    style="background-image: url('/assets/sign2.svg')"
-                    onclick="changeBtnProps('h-24', {backgroundImage: 'url(/assets/sign2.svg)'})">
-                    Style 1
-                </button>
-                <button class="w-[400px] h-[67px] p-4 mx-auto bg-center bg-contain bg-no-repeat"
-                    style="background-image: url('/assets/sign3.svg')"
-                    onclick="changeBtnProps('h-28', {backgroundImage: 'url(/assets/sign3.svg)'})">
-                    Style 1
-                </button>
-
+            <div class="grid items-center grid-cols-1 p-2 mx-auto gap-y-4 md:grid-cols-2">
+                <x-btnboxsvg1 class="h-24 p-3" fill0="#ffffff" fill1="#000000">Test Style Text</x-btnboxsvg1>
+                <x-btnboxsvg2 class="h-24 p-3" fill0="#ffffff" fill1="#000000">Test Style Text</x-btnboxsvg2>
+                <x-btnboxsvg3 class="h-24 p-3" fill0="#ffffff" fill1="#000000">Test Style Text</x-btnboxsvg3>
+                <x-btnroundsvg1 class="h-24 p-3" fill0="#ffffff" fill1="#000000">Test Style Text</x-btnroundsvg1>
+                <x-btnroundsvg2 class="h-24 p-3" fill0="#ffffff" fill1="#000000">Test Style Text</x-btnroundsvg2>
+                <x-btnroundsvg3 class="h-24 p-3" fill0="#ffffff" fill1="#000000">Test Style Text</x-btnroundsvg3>
+                <x-btnroundinsvg1 class="h-24 p-3" fill0="#ffffff" fill1="#000000">Test Style Text</x-btnroundinsvg1>
+                <x-btnroundinsvg2 class="h-24 p-3" fill0="#ffffff" fill1="#000000">Test Style Text</x-btnroundinsvg2>
+                <x-btnroundinsvg3 class="h-24 p-3" fill0="#ffffff" fill1="#000000">Test Style Text</x-btnroundinsvg3>
+                <x-btnhexasvg1 class="h-24 p-3" fill0="#ffffff" fill1="#000000">Test Style Text</x-btnhexasvg1>
+                <x-btnhexasvg2 class="h-24 p-3" fill0="#ffffff" fill1="#000000">Test Style Text</x-btnhexasvg2>
+                <x-btnhexasvg3 class="h-24 p-3" fill0="#ffffff" fill1="#000000">Test Style Text</x-btnhexasvg3>
+                <x-btnsignsvg1 class="h-24 p-3" fill0="#ffffff" fill1="#000000">Test Style Text</x-btnsignsvg1>
+                <x-btnsignsvg2 class="h-24 p-3" fill0="#ffffff" fill1="#000000">Test Style Text</x-btnsignsvg2>
+                <x-btnsignsvg3 class="h-24 p-3" fill0="#ffffff" fill1="#000000">Test Style Text</x-btnsignsvg3>
             </div>
             <div id="modalWarna" class="fixed inset-0 items-center justify-center hidden bg-gray-800 bg-opacity-75">
                 <div class="w-1/3 p-6 mx-auto mt-[30vh] bg-white rounded-lg shadow-lg">

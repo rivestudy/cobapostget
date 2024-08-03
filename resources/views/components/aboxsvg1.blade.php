@@ -1,5 +1,5 @@
 <!-- resources/views/components/button-svg1.blade.php -->
-<button class="relative flex items-center justify-center mx-auto">
+<a class="relative flex items-center justify-center mx-auto link-href" href="{{ $attributes->get('url') }}">
     <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="100%" height="100%" version="1.1"
         style="margin: 0; display: block; shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
         viewBox="0 0 12194.15 2015.45" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -26,7 +26,7 @@
             </g>
         </g>
     </svg>
-    <span class="absolute text-center" style="color: {{ $attributes->get('textColor', '#000') }};">
+    <span class="absolute text-center link-button" style="color: {{ $attributes->get('textColor', '#000') }};">
         {{ $slot }}
     </span>
-</button>
+</a>
