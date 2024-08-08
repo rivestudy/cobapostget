@@ -17,9 +17,9 @@ export default {
     function ({ addComponents }) {
       addComponents({
         '.box': {
+          display: 'inline-block',
           width: '100%',
           aspectRatio: '4.5',
-          position: 'relative',
           zIndex: '0',
         },
         '.boxb': {
@@ -29,25 +29,28 @@ export default {
           clipPath: 'polygon(0 0px,0px 0,calc(100% - 0px) 0,100% 0px,100% calc(100% - 0px),calc(100% - 0px) 100%,0px 100%,0 calc(100% - 0px),0 0px,5px  calc(0px + 2.07px),5px calc(100% - 0px - 2.07px),calc(0px + 2.07px) calc(100% - 5px),calc(100% - 0px - 2.07px) calc(100% - 5px),calc(100% - 5px) calc(100% - 0px - 2.07px),calc(100% - 5px) calc(0px + 2.07px),calc(100% - 0px - 2.07px) 5px,calc(0px + 2.07px) 5px,5px calc(0px + 2.07px))',
         },
         '.boxcb': {
+          display: 'inline-block',
           width: '100%',
           aspectRatio: '4.5',
-          position: 'relative',
           zIndex: '0',
           '--g': '#0000 calc(98% - 10px), #000 calc(100% - 10px) 98%, #0000',
-          '--mask': 'radial-gradient(40px at 40px 40px, #0000 calc(98% - 5px), #000 calc(100% - 5px) 98%, #0000) -40px -40px,' +
-            'linear-gradient(90deg, #000 10px, #0000 0) -5px 50% /100% calc(100% - 80px + 5px) repeat-x,' +
-            'linear-gradient(#000 10px, #0000 0) 50% -5px/calc(100% - 80px + 5px) 100% repeat-y',
+          '--mask': 'radial-gradient(25px at 25px 25px,#0000 calc(98% - 5px),#000 calc(100% - 5px) 98%,#0000) -25px -25px,'+
+          'linear-gradient(90deg,#000 10px,#0000 0) -5px 50% /100% calc(100% - 50px + 5px) repeat-x,'+
+          'linear-gradient(      #000 10px,#0000 0) 50% -5px/calc(100% - 50px + 5px) 100% repeat-y',
+      
+      
           '-webkit-mask': 'var(--mask)',
+          
           mask: 'var(--mask)',
         },
         '.boxc': {
           display: 'inline-block',
           width: '100%',
           aspectRatio: '4.5',
-          '-webkit-mask': 'radial-gradient(circle 30px at top left, #0000 98%, #000) top left,' +
-            'radial-gradient(circle 30px at top right, #0000 98%, #000) top right,' +
-            'radial-gradient(circle 30px at bottom left, #0000 98%, #000) bottom left,' +
-            'radial-gradient(circle 30px at bottom right, #0000 98%, #000) bottom right',
+          '-webkit-mask': 'radial-gradient(circle 25px at top left, #0000 98%, #000) top left,' +
+            'radial-gradient(circle 25px at top right, #0000 98%, #000) top right,' +
+            'radial-gradient(circle 25px at bottom left, #0000 98%, #000) bottom left,' +
+            'radial-gradient(circle 25px at bottom right, #0000 98%, #000) bottom right',
           '-webkit-mask-size': '51% 51%',
           '-webkit-mask-repeat': 'no-repeat',
         },

@@ -98,8 +98,8 @@
                     <div id="buttonContainer" class="justify-center w-full px-2 mt-4 text-center">
                         @foreach ($linkButtons as $index => $linkButton)
                             <div class="link-button-wrapper" data-id="{{ $index }}">
-                                <div class="z-20 mx-auto w-[390px] h-[85px] flex items-center justify-center">
-                                    <a class="text-center link-buttons"
+                                <div class="z-20 mx-auto w-[390px] h-[70px] flex items-center justify-center">
+                                    <a class="z-20 text-center link-buttons"
                                         href="{{ $linkButton->url }}">{{ $linkButton->text }}</a>
                                 </div>
                                 <div class="{{ $customization->display_btn_prop }}"
@@ -478,7 +478,7 @@
 
             // Create the outer div for the button
             const outerDiv = document.createElement('div');
-            outerDiv.className = 'z-20 mx-auto w-[390px] h-[85px] flex items-center justify-center';
+            outerDiv.className = 'z-20 mx-auto w-[390px] h-[70px] flex items-center justify-center';
             outerDiv.setAttribute('data-id', id);
 
             // Create the anchor element for the button
@@ -569,21 +569,37 @@
 
             // Create the outer div for the button
             const outerDiv = document.createElement('div');
-            outerDiv.className = 'z-20 mx-auto w-[390px] h-[85px] flex items-center justify-center';
+            outerDiv.className = 'z-20 mx-auto w-[390px] h-[70px] flex items-center justify-center';
             outerDiv.setAttribute('data-id', id);
 
             // Create the anchor element for the button
             const linkButton = document.createElement('a');
-            linkButton.className = 'text-center link-buttons';
+            linkButton.className = 'text-center link-buttons z-20';
             linkButton.href = url;
             linkButton.textContent = text;
             outerDiv.appendChild(linkButton);
 
             // Create the inner div with styles from an example button
+            // Try to find the button element
             const btnExample = document.querySelector('.btnstyle');
+
+            // Create a new div element
             const innerDiv = document.createElement('div');
-            innerDiv.className = btnExample.className;
-            innerDiv.style.backgroundImage = btnExample.style.backgroundImage;
+
+            // Check if btnExample is found
+            if (btnExample) {
+                // If btnExample is found, copy its properties
+                innerDiv.className = btnExample.className;
+                innerDiv.style.backgroundImage = btnExample.style.backgroundImage;
+            } else {
+                // If btnExample is not found, set default values
+                innerDiv.className = 'box w-full -mt-[85px] btnstyle'; // Replace with your default class
+                innerDiv.style.backgroundImage = 'linear-gradient(45deg, red, black)'; // Replace with your default background image
+            }
+
+            // Optionally, append innerDiv to the document body or another element
+            document.body.appendChild(innerDiv);
+
 
             // Append the outer and inner divs to the button wrapper
             buttonWrapper.appendChild(outerDiv);
@@ -649,7 +665,7 @@
         function changebtnstyle(styles) {
             const buttons = document.querySelectorAll('.btnstyle');
             buttons.forEach(button => {
-                button.className = `mb-2 ${styles} btnstyle`;
+                button.className = `mb-2 ${styles} -mt-[85px] btnstyle`;
             });
         }
 

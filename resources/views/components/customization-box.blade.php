@@ -268,8 +268,7 @@
             <div class="grid w-full grid-cols-2 mx-auto gap-x-2 sm:grid-cols-4 lg:grid-cols-5">
                 <x-button class="w-full font-montserrat" onclick="changeFont('montserrat')">Montserrat</x-button>
                 <x-button class="w-full font-roboto" onclick="changeFont('roboto')">Roboto</x-button>
-                <x-button class="w-full font-baskervville"
-                    onclick="changeFont('baskervville')">Baskervville</x-button>
+                <x-button class="w-full font-baskervville" onclick="changeFont('baskervville')">Baskervville</x-button>
                 <x-button class="w-full font-opensans" onclick="changeFont('opensans')">Open Sans</x-button>
                 <x-button class="w-full font-lato" onclick="changeFont('lato')">Lato</x-button>
                 <x-button class="w-full font-lora" onclick="changeFont('lora')">Lora</x-button>
@@ -277,8 +276,7 @@
                 <x-button class="w-full font-ubuntu" onclick="changeFont('ubuntu')">Ubuntu</x-button>
                 <x-button class="w-full font-bebasneue" onclick="changeFont('bebasneue')">Bebas Neue</x-button>
                 <x-button class="w-full font-rowdies" onclick="changeFont('rowdies')">Rowdies</x-button>
-                <x-button class="w-full font-abrilfatface" onclick="changeFont('abrilfatface')">Abril
-                    Fatface</x-button>
+                <x-button class="w-full font-abrilfatface" onclick="changeFont('abrilfatface')">Abril Fatface</x-button>
                 <x-button class="w-full font-orbitron" onclick="changeFont('orbitron')">Orbitron</x-button>
                 <x-button class="w-full font-poppins" onclick="changeFont('poppins')">Poppins</x-button>
                 <x-button class="w-full font-sourcecodepro" onclick="changeFont('sourcecodepro')">Source
