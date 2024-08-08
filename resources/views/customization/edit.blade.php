@@ -62,13 +62,13 @@
     </div>
     {{-- Area Preview --}}
     <div class="sticky top-0 w-full p-4 text-xl font-bold bg-gray-300 xl:w-1/3" style="max-height:100vh">
-        <div
-            class="mx-auto overflow-hidden rounded-3xl border-8 border-black bg-black w-[420px] xl:w-[420px] h-[900px] mt-6 xl:mt-0">
+        <div class="mx-auto overflow-hidden rounded-3xl border-8 border-black bg-black w-[420px] xl:w-[420px] h-[900px] mt-6 xl:mt-0"
+            style="z-index: -10">
             {{-- Header Notif Bar --}}
             <h1 class="sticky top-0 w-full px-3 text-right text-white bg-gray-400 rounded-t-2xl">5G ᯤ | 50%</h1>
             {{-- Container Utama --}}
-            <div class="{{ $customization->display_preview_class }}"
-                style="{{ $customization->display_preview_bg }} {{ $customization->display_preview_fc }}"
+            <div class="{{ $customization->display_preview_class }} "
+                style="z-index: -4; {{ $customization->display_preview_bg }} {{ $customization->display_preview_fc }}"
                 id="displayPreview">
                 <div class="bg-gray-200">
                     @if ($customization->banner)
@@ -95,15 +95,15 @@
                             </div>
                         @endforeach
                     </div>
-                    <div id="buttonContainer" class="justify-center w-full px-2 mt-4 space-y-4">
+                    <div id="buttonContainer" class="justify-center w-full px-2 mt-4 text-center">
                         @foreach ($linkButtons as $index => $linkButton)
-                            <div class="link-button-wrapper" data-id="{{ $index }}">
-                                @php
-                                    $buttonComponent = 'aboxsvg1';
-                                @endphp
-                                <x-dynamic-component :component="$buttonComponent" fill1="#ff0077" fill0="transparent" :url="$linkButton->url">
-                                    {{ $linkButton->text }}
-                                </x-dynamic-component>
+                            <div class="z-20 mx-auto w-[390px] h-[85px] flex items-center justify-center"
+                                data-id="{{ $index }}">
+                                <a class="text-center link-buttons"
+                                    href="{{ $linkButton->url }}">{{ $linkButton->text }}</a>
+                            </div>
+                            <div class="{{ $customization->display_btn_prop }}"
+                                style="background: {{ $customization->display_btn_style }}">
                             </div>
                         @endforeach
                     </div>
@@ -217,7 +217,8 @@
             const linkbuttons = document.querySelector('.link-button');
             const titlePreviewInput = document.getElementById('titlePreviewInput');
             const aboutPreviewInput = document.getElementById('aboutPreviewInput');
-            const btnPropsInput = document.getElementById('btnPropsInput');
+            const btnPropsInput = document.getElementById('btnPropInput');
+            const btnStyle = document.querySelector('.btnstyle');
             const btnStyleInput = document.getElementById('btnStyleInput');
             const socialButtonsContainer = document.getElementById('socialButtonsContainer');
             const linkButtonsContainer = document.getElementById('linkButtonsContainer');
@@ -228,6 +229,8 @@
             titlePreviewInput.value = document.getElementById('titlePreview').innerText;
             aboutPreviewInput.value = document.getElementById('aboutPreview').innerText;
             slugInput.value = document.getElementById('slugInput').value;
+            btnStyleInput.value = btnStyle.style.backgroundImage;
+            btnPropsInput.value = btnStyle.className;
 
 
             // Clear containers
@@ -250,7 +253,7 @@
                 inputIcon.value = button.className;
                 socialButtonsContainer.appendChild(inputIcon);
             });
-            const linkButtons = document.querySelectorAll('.link-button');
+            const linkButtons = document.querySelectorAll('.link-buttons');
             linkButtons.forEach((button, index) => {
                 console.log('Adding link button input', index);
                 let textInput = document.createElement('input');
@@ -259,7 +262,7 @@
                 textInput.value = button.textContent;
                 linkButtonsContainer.appendChild(textInput);
             });
-            const linkHrefs = document.querySelectorAll('.link-href');
+            const linkHrefs = document.querySelectorAll('.link-buttons');
             linkHrefs.forEach((href, index) => {
                 console.log('Adding link button input', index);
                 let urlInput = document.createElement('input');
@@ -463,27 +466,28 @@
         }
 
         //Load tombol link
-        // document.addEventListener('DOMContentLoaded', function() {
-        //     @foreach ($linkButtons as $index => $linkButton)
-        //         createExistingLinkButton('{{ $linkButton->text }}', '{{ $linkButton->url }}',
-        //             '{{ $index }}');
-        //     @endforeach
-        // });
-        
-        // function createExistingLinkButton(text, url, id) {
-        //     const linkContainer = document.getElementById('buttonContainer');
-        //     const buttonWrapper = document.createElement('div');
-        //     buttonWrapper.className = 'link-button-wrapper';
-        //     buttonWrapper.setAttribute('data-id', id);
+        document.addEventListener('DOMContentLoaded', function() {
+            @foreach ($linkButtons as $index => $linkButton)
+                createExistingLinkButton('{{ $linkButton->text }}', '{{ $linkButton->url }}',
+                    '{{ $index }}');
+            @endforeach
+        });
 
-        //     const linkButton = document.createElement('a');
-        //     linkButton.className = 'flex-grow block p-2 text-center border border-gray-300 rounded shadow-xl link-button';
-        //     linkButton.href = url;
-        //     linkButton.textContent = text;
+        function createExistingLinkButton(text, url, id) {
+            const linkContainer = document.getElementById('buttonContainer');
+            const buttonWrapper = document.createElement('div');
+            const btnExample = document.querySelector('.btnstyle');
+            buttonWrapper.className = 'link-button-wrapper';
+            buttonWrapper.setAttribute('data-id', id);
 
-        //     buttonWrapper.appendChild(linkButton);
-        //     linkContainer.appendChild(buttonWrapper);
-        // }
+            const linkButton = document.createElement('a');
+            linkButton.className =
+                linkButton.href = url;
+            linkButton.textContent = text;
+
+            buttonWrapper.appendChild(linkButton);
+            linkContainer.appendChild(buttonWrapper);
+        }
 
         function addLinkButton() {
             const textInput = document.getElementById('textInput').value.trim();
@@ -496,52 +500,75 @@
             document.getElementById('textInput').value = '';
             document.getElementById('urlInput').value = '';
         }
-        
+
         function createNewLinkButton(text, url, id) {
-            const linkContainer = document.getElementById('linkContainers');
-            const buttonContainer = document.getElementById('buttonContainer');
+    const linkContainer = document.getElementById('linkContainers');
+    const buttonContainer = document.getElementById('buttonContainer');
 
-            const linkInputItem = document.createElement('div');
-            linkInputItem.className = 'grid grid-cols-6 mb-2 space-x-2 sm:grid-cols-10 lg:grid-cols-cb link-input-item';
-            linkInputItem.setAttribute('data-id', id);
+    // Create the link input item container
+    const linkInputItem = document.createElement('div');
+    linkInputItem.className = 'grid grid-cols-6 mb-2 space-x-2 sm:grid-cols-10 lg:grid-cols-cb link-input-item';
+    linkInputItem.setAttribute('data-id', id);
 
-            const textElement = document.createElement('input');
-            textElement.className =
-                'flex-grow h-full col-span-2 p-2 bg-transparent border border-gray-300 rounded-lg sm:col-span-4 lg:col-span-7';
-            textElement.value = text;
-            textElement.dataset.url = url;
-            textElement.addEventListener('input', function() {
-                updateLinkButton(id);
-            });
+    // Create the text input element
+    const textElement = document.createElement('input');
+    textElement.className =
+        'flex-grow h-full col-span-2 p-2 bg-transparent border border-gray-300 rounded-lg sm:col-span-4 lg:col-span-7';
+    textElement.value = text;
+    textElement.dataset.url = url;
+    textElement.addEventListener('input', function() {
+        updateLinkButton(id);
+    });
 
-            const urlElement = document.createElement('input');
-            urlElement.className =
-                'flex-grow h-full col-span-3 p-2 bg-transparent border border-gray-300 rounded-lg sm:col-span-5 lg:col-span-8';
-            urlElement.value = url;
-            urlElement.addEventListener('input', function() {
-                updateLinkButton(id);
-            });
+    // Create the URL input element
+    const urlElement = document.createElement('input');
+    urlElement.className =
+        'flex-grow h-full col-span-3 p-2 bg-transparent border border-gray-300 rounded-lg sm:col-span-5 lg:col-span-8';
+    urlElement.value = url;
+    urlElement.addEventListener('input', function() {
+        updateLinkButton(id);
+    });
 
-            const deleteButton = document.createElement('button');
-            deleteButton.className = 'items-center justify-center flex-grow col-span-1';
-            deleteButton.innerHTML = '<i class="block py-2 text-white bg-red-500 rounded-lg bi bi-trash"></i>';
-            deleteButton.onclick = () => removeLinkButton(deleteButton, id);
+    // Create the delete button element
+    const deleteButton = document.createElement('button');
+    deleteButton.className = 'items-center justify-center flex-grow col-span-1';
+    deleteButton.innerHTML = '<i class="block py-2 text-white bg-red-500 rounded-lg bi bi-trash"></i>';
+    deleteButton.onclick = () => removeLinkButton(deleteButton, id);
 
-            linkInputItem.append(textElement, urlElement, deleteButton);
-            linkContainer.appendChild(linkInputItem);
+    // Append text input, URL input, and delete button to the link input item
+    linkInputItem.append(textElement, urlElement, deleteButton);
+    linkContainer.appendChild(linkInputItem);
 
-            const buttonWrapper = document.createElement('div');
-            buttonWrapper.className = 'link-button-wrapper';
-            buttonWrapper.setAttribute('data-id', id);
+    // Create the button wrapper
+    const buttonWrapper = document.createElement('div');
+    buttonWrapper.className = 'link-button-wrapper';
+    buttonWrapper.setAttribute('data-id', id);
 
-            const newButton = document.createElement('a');
-            newButton.className = 'flex-grow block p-5 text-center border border-gray-300 rounded shadow-xl link-button';
-            newButton.href = url;
-            newButton.textContent = text;
+    // Create the outer div for the button
+    const outerDiv = document.createElement('div');
+    outerDiv.className = 'z-20 mx-auto w-[390px] h-[85px] flex items-center justify-center';
+    outerDiv.setAttribute('data-id', id);
 
-            buttonWrapper.appendChild(newButton);
-            buttonContainer.appendChild(buttonWrapper);
-        }
+    // Create the anchor element for the button
+    const linkButton = document.createElement('a');
+    linkButton.className = 'text-center link-buttons';
+    linkButton.href = url;
+    linkButton.textContent = text;
+    outerDiv.appendChild(linkButton);
+
+    // Create the inner div with styles from an example button
+    const btnExample = document.querySelector('.btnstyle');
+    const innerDiv = document.createElement('div');
+    innerDiv.className = btnExample.className;
+    innerDiv.style.backgroundImage = btnExample.style.backgroundImage;
+
+    // Append the outer and inner divs to the button wrapper
+    buttonWrapper.appendChild(outerDiv);
+    buttonWrapper.appendChild(innerDiv);
+
+    // Append the button wrapper to the button container
+    buttonContainer.appendChild(buttonWrapper);
+}
 
         function updateLinkButton(id) {
             const linkInputItem = document.querySelector(`#linkContainers .link-input-item[data-id="${id}"]`);
@@ -571,6 +598,23 @@
 
             const buttonWrapper = document.querySelector(`#buttonContainer .link-button-wrapper[data-id="${id}"]`);
             if (buttonWrapper) buttonWrapper.remove();
+        }
+
+        function changebtnstyle(styles) {
+            const buttons = document.querySelectorAll('.btnstyle');
+            buttons.forEach(button => {
+                button.className = `mb-2 ${styles} btnstyle`;
+            });
+        }
+
+        function changebtnclr() {
+            const buttons = document.querySelectorAll('.btnstyle');
+            const direction = document.getElementById('grad-dir-btn').value;
+            const grad1 = document.getElementById('btnf1').value;
+            const grad2 = document.getElementById('btnf2').value;
+            buttons.forEach(button => {
+                button.style.backgroundImage = `linear-gradient(${direction}, ${grad1}, ${grad2})`;
+            });
         }
     </script>
 </body>

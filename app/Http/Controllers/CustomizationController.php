@@ -77,8 +77,8 @@ public function update(Request $request)
     $customization->about = $request->input('about_input', $customization->about);
     $customization->display_preview_class = $request->input('display_preview_class', $customization->display_preview_class);
     $customization->display_preview_bg = $request->input('display_preview_bg', $customization->display_preview_bg);
-    $customization->display_btn_style = $request->input('display_btn_style', $customization->display_btn_style);
-    $customization->display_btn_prop = $request->input('display_btn_prop', $customization->display_btn_prop);
+    $customization->display_btn_style = $request->input('btnstyle_input', $customization->display_btn_style);
+    $customization->display_btn_prop = $request->input('btnprops_input', $customization->display_btn_prop);
     $customization->save();
 
     // Handle social buttons update

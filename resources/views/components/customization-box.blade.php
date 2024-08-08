@@ -298,61 +298,80 @@
     <div class="mx-auto mb-3">
         <h3 class="font-bold">Button Properties</h3>
         <div class="bg-white rounded-lg shadow-lg">
-            <div class="grid items-center grid-cols-1 p-2 mx-auto gap-y-4 md:grid-cols-2">
-                <x-btnboxsvg1 class="h-24 p-3" fill0="#ffffff" fill1="#000000">Test Style Text</x-btnboxsvg1>
-                <x-btnboxsvg2 class="h-24 p-3" fill0="#ffffff" fill1="#000000">Test Style Text</x-btnboxsvg2>
-                <x-btnboxsvg3 class="h-24 p-3" fill0="#ffffff" fill1="#000000">Test Style Text</x-btnboxsvg3>
-                <x-btnroundsvg1 class="h-24 p-3" fill0="#ffffff" fill1="#000000">Test Style Text</x-btnroundsvg1>
-                <x-btnroundsvg2 class="h-24 p-3" fill0="#ffffff" fill1="#000000">Test Style Text</x-btnroundsvg2>
-                <x-btnroundsvg3 class="h-24 p-3" fill0="#ffffff" fill1="#000000">Test Style Text</x-btnroundsvg3>
-                <x-btnroundinsvg1 class="h-24 p-3" fill0="#ffffff" fill1="#000000">Test Style Text</x-btnroundinsvg1>
-                <x-btnroundinsvg2 class="h-24 p-3" fill0="#ffffff" fill1="#000000">Test Style Text</x-btnroundinsvg2>
-                <x-btnroundinsvg3 class="h-24 p-3" fill0="#ffffff" fill1="#000000">Test Style Text</x-btnroundinsvg3>
-                <x-btnhexasvg1 class="h-24 p-3" fill0="#ffffff" fill1="#000000">Test Style Text</x-btnhexasvg1>
-                <x-btnhexasvg2 class="h-24 p-3" fill0="#ffffff" fill1="#000000">Test Style Text</x-btnhexasvg2>
-                <x-btnhexasvg3 class="h-24 p-3" fill0="#ffffff" fill1="#000000">Test Style Text</x-btnhexasvg3>
-                <x-btnsignsvg1 class="h-24 p-3" fill0="#ffffff" fill1="#000000">Test Style Text</x-btnsignsvg1>
-                <x-btnsignsvg2 class="h-24 p-3" fill0="#ffffff" fill1="#000000">Test Style Text</x-btnsignsvg2>
-                <x-btnsignsvg3 class="h-24 p-3" fill0="#ffffff" fill1="#000000">Test Style Text</x-btnsignsvg3>
-            </div>
-            <div id="modalWarna" class="fixed inset-0 items-center justify-center hidden bg-gray-800 bg-opacity-75">
-                <div class="w-1/3 p-6 mx-auto mt-[30vh] bg-white rounded-lg shadow-lg">
-                    <span class="text-2xl text-gray-700 cursor-pointer float-end close"
-                        onclick="closeWarna()">&times;</span>
-                    <div>
-                        <label for="grad-1">Custom Gradient</label>
-                        <div class="flex mt-2 space-x-2">
-                            <input class="w-1/6 h-12 rounded" type="color" id="grad-1"
-                                oninput="applyCustomBackground()">
-                            <p id="color1" class="w-1/6">#color1</p>
-                        </div>
-                        <div class="flex mt-2 space-x-2">
-                            <input class="w-1/6 h-12 rounded" type="color" id="grad-2"
-                                oninput="applyCustomBackground()">
-                            <p id="color2" class="w-1/6">#color2</p>
-                        </div>
-                        <div class="mt-4">
-                            <label for="gradient-direction">Gradient Direction</label>
-                            <select id="gradient-direction" class="w-1/3 p-2 border rounded"
-                                onchange="applyCustomBackground()">
-                                <option value="to top right">To Top Right</option>
-                                <option value="to bottom right">To Bottom Right</option>
-                                <option value="to bottom left">To Bottom Left</option>
-                                <option value="to top left">To Top Left</option>
-                                <option value="to top">To Top</option>
-                                <option value="to bottom">To Bottom</option>
-                                <option value="to left">To Left</option>
-                                <option value="to right">To Right</option>
-                        </div>
-                    </div>
-                    <div class="mt-4">
-                        <label for="font-c">Font Color</label>
-                        <div class="flex mt-2 space-x-2">
-                            <input type="color" id="font-c" class="w-1/6 h-10 p-0 rounded">
-                            <p id="font-color-hex" class="w-1/6">#color</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="grid items-center grid-cols-1 p-4 mx-auto -gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <button class="w-full scale-75" onclick="changebtnstyle('box')">
+                    <div class="w-full box" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
+                </button>
+                <button class="w-full scale-75" onclick="changebtnstyle('boxb')">
+                    <div class="w-full boxb" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
+                </button>
+                <button class="w-full scale-75" onclick="changebtnstyle('boxc')">
+                    <div class="w-full boxc" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
+                </button>
+                <button class="w-full scale-75" onclick="changebtnstyle('boxcb')">
+                    <div class="w-full boxcb" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
+                </button>
+                <button class="w-full scale-75" onclick="changebtnstyle('box40')">
+                    <div class="w-full box40" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
+                </button>
+                <button class="w-full scale-75" onclick="changebtnstyle('box40b')">
+                    <div class="w-full box40b" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
+                </button>
+                <button class="w-full scale-75" onclick="changebtnstyle('box60')">
+                    <div class="w-full box60" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
+                </button>
+                <button class="w-full scale-75" onclick="changebtnstyle('box60b')">
+                    <div class="w-full box60b" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
+                </button>
+                <button class="w-full scale-75" onclick="changebtnstyle('box90')">
+                    <div class="w-full box90" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
+                </button>
+                <button class="w-full scale-75" onclick="changebtnstyle('box90b')">
+                    <div class="w-full box90b" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
+                </button>
+                <button class="w-full scale-75" onclick="changebtnstyle('box150')">
+                    <div class="w-full box150" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
+                </button>
+                <button class="w-full scale-75" onclick="changebtnstyle('box120b')">
+                    <div class="w-full box120b" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
+                </button>
+                <button class="w-full scale-75" onclick="changebtnstyle('box180')">
+                    <div class="w-full box180" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
+                </button>
+                <button class="w-full scale-75" onclick="changebtnstyle('box180b')">
+                    <div class="w-full box180b" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
+                </button>
+                <button class="w-full scale-75" onclick="changebtnstyle('boxri')">
+                    <div class="w-full boxri" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
+                </button>
+                <button class="w-full scale-75" onclick="changebtnstyle('boxro')">
+                    <div class="w-full boxro" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
+                </button>
+                <button class="w-full scale-75" onclick="changebtnstyle('boxrb')">
+                    <div class="w-full boxrb" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
+                </button>
+                
+            </div>  
+            <div class="form-container">
+                <label for="grad-dir-btn">Button Type:</label>
+                <select id="grad-dir-btn" class="w-1/3 p-2 border rounded"
+                                onchange="changebtnclr()">
+                                <option value="45deg">To Top Right</option>
+                                <option value="135deg">To Bottom Right</option>
+                                <option value="225deg">To Bottom Left</option>
+                                <option value="315deg">To Top Left</option>
+                                <option value="0deg">To Top</option>
+                                <option value="180deg">To Bottom</option>
+                                <option value="90deg">To Left</option>
+                                <option value="270deg">To Right</option>
+        
+                <label for="btnf1">Fill Color 1:</label>
+                <input type="color" id="btnf1" value="#ffffff" oninput="changebtnclr()">
+        
+                <label for="btnf2">Fill Color 0:</label>
+                <input type="color" id="btnf2" value="#ffffff" oninput="changebtnclr()">
+        
+                <button id="updateButton">Update Button</button>
             </div>
         </div>
     </div>

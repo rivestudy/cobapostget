@@ -58,13 +58,18 @@
                                 </div>
                             @endforeach
                         </div>
-                        <div id="buttonContainer" class="justify-center w-full px-2 mt-4 space-y-2">
+                        <div id="buttonContainer" class="justify-center w-full px-2 mt-4 text-center">
                             @foreach ($linkButtons as $index => $linkButton)
-                                <div class="link-button-wrapper" data-id="{{ $index }}">
-                                    <a class="flex-grow block p-2 text-center border border-gray-300 rounded shadow-xl link-button"
+                                <div class="relative z-20 mx-auto w-[390px] h-[85px] flex items-center justify-center"
+                                    data-id="{{ $index }}">
+                                    <a class="text-center link-buttons"
                                         href="{{ $linkButton->url }}">{{ $linkButton->text }}</a>
                                 </div>
+                                <div class="{{ $customizations->display_btn_prop }}"
+                                    style="background: {{ $customizations->display_btn_style }}">
+                                </div>
                             @endforeach
+    
                         </div>
                     </div>
                 </div>
