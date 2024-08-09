@@ -15,22 +15,25 @@
     .no-scrollbar::-webkit-scrollbar {
         display: none;
     }
+
     .no-scrollbar {
-        -ms-overflow-style: none; 
+        -ms-overflow-style: none;
         scrollbar-width: none;
     }
 </style>
+
 <body>
     <!-- resources/views/home.blade.php -->
-    <div class="container">
+    <div class=""
+    style="{{ $customizations->display_preview_bg }}">
         <h1>Welcome, {{ Auth::user()->name }}</h1>
 
         @if ($customizations)
-            <div
-                class="mx-auto overflow-hidden rounded-3xl border-8 border-black bg-black w-[420px] xl:w-[420px] h-[900px] mt-6 xl:mt-0">
-                <h1 class="sticky top-0 w-full px-3 text-right text-white bg-gray-400 rounded-t-2xl">5G ᯤ | 50%</h1>
-                <div class="{{ $customizations->display_preview_class }}"
-                    style="{{ $customizations->display_preview_bg }} {{ $customizations->display_preview_fc }}"
+            <div class="mx-auto overflow-hidden w-[420px] xl:w-[420px] h-[900px] mt-6 xl:mt-0"
+                style="z-index: -10 ; ">
+                {{-- Container Utama --}}
+                <div class="{{ $customizations->display_preview_class }} overflow-y-auto "
+                    style="z-index: -4; {{ $customizations->display_preview_fc }}"
                     id="displayPreview">
                     <div class="bg-gray-200">
                         @if ($customizations->banner)
@@ -42,7 +45,7 @@
                     <div>
                         <div class="w-24 mx-auto bg-gray-600 rounded-full">
                             @if ($customizations->profile)
-                                <img class="object-cover w-24 h-24 -mt-12 rounded-full"
+                                <img class="object-cover w-24 h-24 -mt-12 rounded-full text-bold"
                                     src="{{ asset('storage/' . $customizations->profile) }}" id="profilePreview"
                                     alt="Profile">
                             @endif
@@ -51,25 +54,26 @@
                             id="titlePreview">{{ $customizations->title }}</h1>
                         <p class="mb-4 text-center break-words whitespace-normal About" id="aboutPreview">
                             {{ $customizations->about }}</p>
-                        <div id="linkContainer" class="flex flex-wrap justify-center p-2 mx-auto space-x-2 previewButtons">
+                        <div id="linkContainer"
+                            class="flex flex-wrap justify-center p-2 mx-auto space-x-2 previewButtons">
                             @foreach ($socialButtons as $index => $socialButton)
-                                <div class="mb-4 social-button-wrapper" data-id="{{ $index }}">
+                                <div class="mb-2 social-button-wrapper" data-id="{{ $index }}">
                                     <a class="{{ $socialButton->icon }}" href="{{ $socialButton->url }}"></a>
                                 </div>
                             @endforeach
                         </div>
                         <div id="buttonContainer" class="justify-center w-full px-2 mt-4 text-center">
                             @foreach ($linkButtons as $index => $linkButton)
-                                <div class="relative z-20 mx-auto w-[390px] h-[85px] flex items-center justify-center"
-                                    data-id="{{ $index }}">
-                                    <a class="text-center link-buttons"
-                                        href="{{ $linkButton->url }}">{{ $linkButton->text }}</a>
-                                </div>
-                                <div class="{{ $customizations->display_btn_prop }}"
-                                    style="background: {{ $customizations->display_btn_style }}">
+                                <div class="mb-2 link-button-wrapper" data-id="{{ $index }}">
+                                    <div class="z-20 mx-auto w-[390px] h-[70px] flex items-center justify-center">
+                                        <a class="z-20 text-center link-buttons"
+                                            href="{{ $linkButton->url }}">{{ $linkButton->text }}</a>
+                                    </div>
+                                    <div class="{{ $customizations->display_btn_prop }}"
+                                        style="background: {{ $customizations->display_btn_style }}">
+                                    </div>
                                 </div>
                             @endforeach
-    
                         </div>
                     </div>
                 </div>

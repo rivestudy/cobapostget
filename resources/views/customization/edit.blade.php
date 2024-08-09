@@ -54,21 +54,20 @@
                     <div class="" id="linkButtonsContainer"></div>
                     <button class="p-2 px-4 font-bold text-white bg-green-500 rounded-lg" type="submit"
                         onclick="setProps()">Save Previews</button>
-
                 </form>
                 <button onclick="setProps()">test</button>
             </div>
         </x-customization-box>
     </div>
     {{-- Area Preview --}}
-    <div class="sticky top-0 w-full p-4 text-xl font-bold bg-gray-300 xl:w-1/3" style="max-height:100vh">
+    <div class="sticky top-0 w-full p-4 bg-gray-300 text-l xl:w-1/3" style="max-height:100vh">
         <div class="mx-auto overflow-hidden rounded-3xl border-8 border-black bg-black w-[420px] xl:w-[420px] h-[900px] mt-6 xl:mt-0"
             style="z-index: -10">
             {{-- Header Notif Bar --}}
             <h1 class="sticky top-0 w-full px-3 text-right text-white bg-gray-400 rounded-t-2xl">5G ᯤ | 50%</h1>
             {{-- Container Utama --}}
             <div class="{{ $customization->display_preview_class }} "
-                style="z-index: -4; {{ $customization->display_preview_bg }} {{ $customization->display_preview_fc }}"
+                style="z-index: -4; overflow-y: auto ;{{ $customization->display_preview_bg }} {{ $customization->display_preview_fc }}"
                 id="displayPreview">
                 <div class="bg-gray-200">
                     @if ($customization->banner)
@@ -79,7 +78,7 @@
                 <div>
                     <div class="w-24 mx-auto bg-gray-600 rounded-full">
                         @if ($customization->profile)
-                            <img class="object-cover w-24 h-24 -mt-12 rounded-full"
+                            <img class="object-cover w-24 h-24 -mt-12 rounded-full text-bold"
                                 src="{{ asset('storage/' . $customization->profile) }}" id="profilePreview"
                                 alt="Profile">
                         @endif
@@ -97,7 +96,7 @@
                     </div>
                     <div id="buttonContainer" class="justify-center w-full px-2 mt-4 text-center">
                         @foreach ($linkButtons as $index => $linkButton)
-                            <div class="link-button-wrapper" data-id="{{ $index }}">
+                            <div class="mb-2 link-button-wrapper" data-id="{{ $index }}">
                                 <div class="z-20 mx-auto w-[390px] h-[70px] flex items-center justify-center">
                                     <a class="z-20 text-center link-buttons"
                                         href="{{ $linkButton->url }}">{{ $linkButton->text }}</a>
@@ -378,7 +377,7 @@
             if (!linkInputValue) return alert('Please enter a link first.');
             if (!iconClass) return alert('Please select an icon.');
 
-            const newId = Date.now(); // Use a unique ID for new elements
+            const newId = Date.now();
             createNewLink(iconClass, linkInputValue, newId);
             document.getElementById('newLinkInput').value = '';
             iconSelect.selectedIndex = 0;
@@ -496,7 +495,7 @@
 
             // Append the outer and inner divs to the button wrapper
             const buttonWrapper = document.createElement('div');
-            buttonWrapper.className = 'link-button-wrapper';
+            buttonWrapper.className = 'mb-2 link-button-wrapper';
             buttonWrapper.setAttribute('data-id', id);
             buttonWrapper.appendChild(outerDiv);
             buttonWrapper.appendChild(innerDiv);
@@ -564,7 +563,7 @@
 
             // Create the button wrapper
             const buttonWrapper = document.createElement('div');
-            buttonWrapper.className = 'link-button-wrapper';
+            buttonWrapper.className = 'mb-2 link-button-wrapper';
             buttonWrapper.setAttribute('data-id', id);
 
             // Create the outer div for the button
@@ -593,7 +592,7 @@
                 innerDiv.style.backgroundImage = btnExample.style.backgroundImage;
             } else {
                 // If btnExample is not found, set default values
-                innerDiv.className = 'box w-full -mt-[85px] btnstyle'; // Replace with your default class
+                innerDiv.className = 'box w-full -mt-[86.6px] btnstyle'; // Replace with your default class
                 innerDiv.style.backgroundImage = 'linear-gradient(45deg, red, black)'; // Replace with your default background image
             }
 
@@ -665,7 +664,7 @@
         function changebtnstyle(styles) {
             const buttons = document.querySelectorAll('.btnstyle');
             buttons.forEach(button => {
-                button.className = `mb-2 ${styles} -mt-[85px] btnstyle`;
+                button.className = `mb-2 ${styles} -mt-[86.6px] btnstyle`;
             });
         }
 
@@ -677,6 +676,17 @@
             buttons.forEach(button => {
                 button.style.backgroundImage = `linear-gradient(${direction}, ${grad1}, ${grad2})`;
             });
+        }
+
+        function showhide(elementId) {
+            const element = document.getElementById(elementId);
+            if (element.classList.contains('-translate-y-full')) {
+                element.classList.remove('-translate-y-full','h-0', 'opacity-0');
+                element.classList.add('translate-y-0', 'opacity-100');
+            } else {
+                element.classList.remove('translate-y-0', 'opacity-100');
+                element.classList.add('-translate-y-full','h-0', 'opacity-0');
+            }
         }
     </script>
 </body>

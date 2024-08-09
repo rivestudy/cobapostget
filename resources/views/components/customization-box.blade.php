@@ -20,10 +20,13 @@
         -ms-overflow-style: none;
         scrollbar-width: none;
     }
+
     .button {
-    --fill0-color: white; /* Default color for .fill0 */
-    --fill1-color: black; /* Default color for .fill1 */
-}
+        --fill0-color: white;
+        /* Default color for .fill0 */
+        --fill1-color: black;
+        /* Default color for .fill1 */
+    }
 </style>
 <div class="flex-grow max-w-full p-8 shadow-2xl customizations">
     {{-- Link Profil --}}
@@ -265,112 +268,124 @@
     <div class="flex-grow mb-3">
         <h3 class="font-bold">Font</h3>
         <div class="p-3 bg-white rounded-lg shadow">
-            <div class="grid w-full grid-cols-2 mx-auto gap-x-2 sm:grid-cols-4 lg:grid-cols-5">
-                <x-button class="w-full font-montserrat" onclick="changeFont('montserrat')">Montserrat</x-button>
-                <x-button class="w-full font-roboto" onclick="changeFont('roboto')">Roboto</x-button>
-                <x-button class="w-full font-baskervville" onclick="changeFont('baskervville')">Baskervville</x-button>
-                <x-button class="w-full font-opensans" onclick="changeFont('opensans')">Open Sans</x-button>
-                <x-button class="w-full font-lato" onclick="changeFont('lato')">Lato</x-button>
-                <x-button class="w-full font-lora" onclick="changeFont('lora')">Lora</x-button>
-                <x-button class="w-full font-inter" onclick="changeFont('inter')">Inter</x-button>
-                <x-button class="w-full font-ubuntu" onclick="changeFont('ubuntu')">Ubuntu</x-button>
-                <x-button class="w-full font-bebasneue" onclick="changeFont('bebasneue')">Bebas Neue</x-button>
-                <x-button class="w-full font-rowdies" onclick="changeFont('rowdies')">Rowdies</x-button>
-                <x-button class="w-full font-abrilfatface" onclick="changeFont('abrilfatface')">Abril Fatface</x-button>
-                <x-button class="w-full font-orbitron" onclick="changeFont('orbitron')">Orbitron</x-button>
-                <x-button class="w-full font-poppins" onclick="changeFont('poppins')">Poppins</x-button>
-                <x-button class="w-full font-sourcecodepro" onclick="changeFont('sourcecodepro')">Source
-                    Code</x-button>
-                <x-button class="w-full font-plusjakartasans" onclick="changeFont('plusjakartasans')">Plus Jakarta
-                    Sans</x-button>
-                <x-button class="w-full font-merriweather"
-                    onclick="changeFont('merriweather')">Merriweather</x-button>
-                <x-button class="w-full font-blackopsone" onclick="changeFont('blackopsone')">Black Ops One</x-button>
-                <x-button class="w-full font-rubikmonoone" onclick="changeFont('rubikmonoone')">Rubik Mono</x-button>
-                <x-button class="w-full font-merienda" onclick="changeFont('merienda')">Merienda</x-button>
-                <x-button class="w-full font-kalam" onclick="changeFont('kalam')">Kalam</x-button>
+            <div>
+                <div class="grid w-full grid-cols-2 mx-auto gap-x-2 sm:grid-cols-4 lg:grid-cols-5">
+                    <x-button class="w-full font-montserrat" onclick="changeFont('montserrat')">Montserrat</x-button>
+                    <x-button class="w-full font-roboto" onclick="changeFont('roboto')">Roboto</x-button>
+                    <x-button class="w-full font-baskervville"
+                        onclick="changeFont('baskervville')">Baskervville</x-button>
+                    <x-button class="w-full font-opensans" onclick="changeFont('opensans')">Open Sans</x-button>
+                    <x-button class="w-full font-lato" onclick="changeFont('lato')">Lato</x-button>
+                    <x-button class="w-full font-lora" onclick="changeFont('lora')">Lora</x-button>
+                    <x-button class="w-full font-inter" onclick="changeFont('inter')">Inter</x-button>
+                    <x-button class="w-full font-ubuntu" onclick="changeFont('ubuntu')">Ubuntu</x-button>
+                    <x-button class="w-full font-bebasneue" onclick="changeFont('bebasneue')">Bebas Neue</x-button>
+                    <x-button class="w-full font-rowdies" onclick="changeFont('rowdies')">Rowdies</x-button>
+                    <x-button class="w-full font-abrilfatface" onclick="changeFont('abrilfatface')">Abril
+                        Fatface</x-button>
+                    <x-button class="w-full font-orbitron" onclick="changeFont('orbitron')">Orbitron</x-button>
+                    <x-button class="w-full font-poppins" onclick="changeFont('poppins')">Poppins</x-button>
+                    <x-button class="w-full font-sourcecodepro" onclick="changeFont('sourcecodepro')">Source
+                        Code</x-button>
+                    <x-button class="w-full font-plusjakartasans" onclick="changeFont('plusjakartasans')">Plus Jakarta
+                        Sans</x-button>
+                    <x-button class="w-full font-merriweather"
+                        onclick="changeFont('merriweather')">Merriweather</x-button>
+                    <x-button class="w-full font-blackopsone" onclick="changeFont('blackopsone')">Black Ops One</x-button>
+                    <x-button class="w-full font-rubikmonoone" onclick="changeFont('rubikmonoone')">Rubik Mono</x-button>
+                    <x-button class="w-full font-merienda" onclick="changeFont('merienda')">Merienda</x-button>
+                    <x-button class="w-full font-kalam" onclick="changeFont('kalam')">Kalam</x-button>
+                </div>
             </div>
         </div>
     </div>
     {{-- Button --}}
     <div class="mx-auto mb-3">
-        <h3 class="font-bold">Button Properties</h3>
-        <div class="bg-white rounded-lg shadow-lg">
-            <div class="grid items-center grid-cols-1 p-4 mx-auto -gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                <button class="w-full scale-75" onclick="changebtnstyle('box')">
-                    <div class="w-full box" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
+        <div class="p-3 bg-white rounded-lg shadow-lg min-h-16">
+            <div class="flex items-center justify-between">
+                <h3 class="font-bold">Button Properties</h3>
+                <button class="z-50 p-2 px-6 ml-1 bi bi-chevron-down" onclick="showhide('btnpropsdiv')">
                 </button>
-                <button class="w-full scale-75" onclick="changebtnstyle('boxb')">
-                    <div class="w-full boxb" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
-                </button>
-                <button class="w-full scale-75" onclick="changebtnstyle('boxc')">
-                    <div class="w-full boxc" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
-                </button>
-                <button class="w-full scale-75" onclick="changebtnstyle('boxcb')">
-                    <div class="w-full boxcb" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
-                </button>
-                <button class="w-full scale-75" onclick="changebtnstyle('box40')">
-                    <div class="w-full box40" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
-                </button>
-                <button class="w-full scale-75" onclick="changebtnstyle('box40b')">
-                    <div class="w-full box40b" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
-                </button>
-                <button class="w-full scale-75" onclick="changebtnstyle('box60')">
-                    <div class="w-full box60" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
-                </button>
-                <button class="w-full scale-75" onclick="changebtnstyle('box60b')">
-                    <div class="w-full box60b" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
-                </button>
-                <button class="w-full scale-75" onclick="changebtnstyle('box90')">
-                    <div class="w-full box90" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
-                </button>
-                <button class="w-full scale-75" onclick="changebtnstyle('box90b')">
-                    <div class="w-full box90b" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
-                </button>
-                <button class="w-full scale-75" onclick="changebtnstyle('box150')">
-                    <div class="w-full box150" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
-                </button>
-                <button class="w-full scale-75" onclick="changebtnstyle('box120b')">
-                    <div class="w-full box120b" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
-                </button>
-                <button class="w-full scale-75" onclick="changebtnstyle('box180')">
-                    <div class="w-full box180" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
-                </button>
-                <button class="w-full scale-75" onclick="changebtnstyle('box180b')">
-                    <div class="w-full box180b" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
-                </button>
-                <button class="w-full scale-75" onclick="changebtnstyle('boxri')">
-                    <div class="w-full boxri" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
-                </button>
-                <button class="w-full scale-75" onclick="changebtnstyle('boxro')">
-                    <div class="w-full boxro" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
-                </button>
-                <button class="w-full scale-75" onclick="changebtnstyle('boxrb')">
-                    <div class="w-full boxrb" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
-                </button>
-                
-            </div>  
-            <div class="form-container">
-                <label for="grad-dir-btn">Button Type:</label>
-                <select id="grad-dir-btn" class="w-1/3 p-2 border rounded"
-                                onchange="changebtnclr()">
-                                <option value="45deg">To Top Right</option>
-                                <option value="135deg">To Bottom Right</option>
-                                <option value="225deg">To Bottom Left</option>
-                                <option value="315deg">To Top Left</option>
-                                <option value="0deg">To Top</option>
-                                <option value="180deg">To Bottom</option>
-                                <option value="90deg">To Left</option>
-                                <option value="270deg">To Right</option>
-        
-                <label for="btnf1">Fill Color 1:</label>
-                <input type="color" id="btnf1" value="#ffffff" oninput="changebtnclr()">
-        
-                <label for="btnf2">Fill Color 0:</label>
-                <input type="color" id="btnf2" value="#ffffff" oninput="changebtnclr()">
-        
-                <button id="updateButton">Update Button</button>
             </div>
+            <div class="overflow-hidden">
+                <div id="btnpropsdiv"
+                 class="h-0 mt-2 transition-transform duration-300 ease-in-out transform -translate-y-full opacity-0 -z-10">
+                <div class="grid items-center grid-cols-1 p-4 mx-auto -gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    <button class="w-full scale-75" onclick="changebtnstyle('box')">
+                        <div class="w-full box" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
+                    </button>
+                    <button class="w-full scale-75" onclick="changebtnstyle('boxb')">
+                        <div class="w-full boxb" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
+                    </button>
+                    <button class="w-full scale-75" onclick="changebtnstyle('boxc')">
+                        <div class="w-full boxc" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
+                    </button>
+                    <button class="w-full scale-75" onclick="changebtnstyle('boxcb')">
+                        <div class="w-full boxcb" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
+                    </button>
+                    <button class="w-full scale-75" onclick="changebtnstyle('box40')">
+                        <div class="w-full box40" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
+                    </button>
+                    <button class="w-full scale-75" onclick="changebtnstyle('box40b')">
+                        <div class="w-full box40b" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
+                    </button>
+                    <button class="w-full scale-75" onclick="changebtnstyle('box60')">
+                        <div class="w-full box60" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
+                    </button>
+                    <button class="w-full scale-75" onclick="changebtnstyle('box60b')">
+                        <div class="w-full box60b" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
+                    </button>
+                    <button class="w-full scale-75" onclick="changebtnstyle('box90')">
+                        <div class="w-full box90" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
+                    </button>
+                    <button class="w-full scale-75" onclick="changebtnstyle('box90b')">
+                        <div class="w-full box90b" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
+                    </button>
+                    <button class="w-full scale-75" onclick="changebtnstyle('box150')">
+                        <div class="w-full box150" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
+                    </button>
+                    <button class="w-full scale-75" onclick="changebtnstyle('box120b')">
+                        <div class="w-full box120b" style="background: linear-gradient(90deg, #ababab, #dddddd)">
+                        </div>
+                    </button>
+                    <button class="w-full scale-75" onclick="changebtnstyle('box180')">
+                        <div class="w-full box180" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
+                    </button>
+                    <button class="w-full scale-75" onclick="changebtnstyle('box180b')">
+                        <div class="w-full box180b" style="background: linear-gradient(90deg, #ababab, #dddddd)">
+                        </div>
+                    </button>
+                    <button class="w-full scale-75" onclick="changebtnstyle('boxri')">
+                        <div class="w-full boxri" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
+                    </button>
+                    <button class="w-full scale-75" onclick="changebtnstyle('boxro')">
+                        <div class="w-full boxro" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
+                    </button>
+                    <button class="w-full scale-75" onclick="changebtnstyle('boxrb')">
+                        <div class="w-full boxrb" style="background: linear-gradient(90deg, #ababab, #dddddd)"></div>
+                    </button>
+                </div>
+                <div class="form-container">
+                    <label for="grad-dir-btn">Button Type:</label>
+                    <select id="grad-dir-btn" class="w-1/3 p-2 border rounded" onchange="changebtnclr()">
+                        <option value="45deg">To Top Right</option>
+                        <option value="135deg">To Bottom Right</option>
+                        <option value="225deg">To Bottom Left</option>
+                        <option value="315deg">To Top Left</option>
+                        <option value="0deg">To Top</option>
+                        <option value="180deg">To Bottom</option>
+                        <option value="90deg">To Left</option>
+                        <option value="270deg">To Right</option>
+
+                        <label for="btnf1">Fill Color 1:</label>
+                        <input type="color" id="btnf1" value="#ffffff" oninput="changebtnclr()">
+
+                        <label for="btnf2">Fill Color 0:</label>
+                        <input type="color" id="btnf2" value="#ffffff" oninput="changebtnclr()">
+                </div>
+            </div>
+            </div>
+            
         </div>
     </div>
     <div class="mx-auto mb-3">
